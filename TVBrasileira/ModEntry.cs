@@ -13,9 +13,6 @@ namespace TVBrasileira
             var ednaldoPereira = new EdnaldoPereira(helper);
             helper.Events.Content.AssetRequested += ednaldoPereira.alterarDialogos;
             helper.Events.Content.AssetRequested += ednaldoPereira.alterarImagens;
-            
-            IDictionary<string, string> data = helper.GameContent.Load<Dictionary<string, string>>("Strings/StringsFromCSFiles");
-            helper.Data.WriteJsonFile("Strings/StringsFromCSFiles", data);
         }
     }
 }
