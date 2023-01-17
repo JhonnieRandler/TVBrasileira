@@ -11,8 +11,6 @@ namespace TVBrasileira
         {
             I18n.Init(helper.Translation);
             var ednaldoPereira = new EdnaldoPereira(helper);
-            helper.Events.Content.AssetRequested += ednaldoPereira.alterarDialogos;
-            helper.Events.Content.AssetRequested += ednaldoPereira.alterarImagens;
         }
     }
 }

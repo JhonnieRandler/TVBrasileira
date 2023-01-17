@@ -11,6 +11,8 @@ namespace TVBrasileira
         public EdnaldoPereira(IModHelper helper)
         {
             _helper = helper;
+            _helper.Events.Content.AssetRequested += alterarDialogos;
+            _helper.Events.Content.AssetRequested += alterarImagens;
         }
         
         public void alterarDialogos(object sender, AssetRequestedEventArgs e)
@@ -44,9 +46,20 @@ namespace TVBrasileira
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
-                    IRawTextureData imagemBuscada =
+                    IRawTextureData normal =
                         _helper.ModContent.Load<IRawTextureData>("assets/ednaldopereira.png");
-                    editor.PatchImage(imagemBuscada, targetArea: new Rectangle(413, 305, 126, 28));
+                    editor.PatchImage(normal, targetArea: new Rectangle(413, 305, 126, 28));
+                });
+            }
+
+            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors2"))
+            {
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsImage();
+                    IRawTextureData ilhasGengibre =
+                        _helper.ModContent.Load<IRawTextureData>("assets/eduanttunes.png");
+                    editor.PatchImage(ilhasGengibre, targetArea: new Rectangle(148, 62, 42, 28));
                 });
             }
         }
