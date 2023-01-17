@@ -1,9 +1,18 @@
+using Microsoft.Xna.Framework;
+using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
 namespace TVBrasileira
 {
     public class EdnaldoPereira
     {
+        private IModHelper _helper;
+        
+        public EdnaldoPereira(IModHelper helper)
+        {
+            _helper = helper;
+        }
+        
         public void alterarDialogos(object sender, AssetRequestedEventArgs e)
         {
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
@@ -23,6 +32,21 @@ namespace TVBrasileira
                     editor.Data["TV.cs.13187"] = I18n.Nublado();
                     editor.Data["TV.cs.13189"] = I18n.NubladoVento();
                     editor.Data["TV.cs.13190"] = I18n.Neve2();
+                    editor.Data["TV_IslandWeatherIntro"] = I18n.PrevisaoIlhasGengibre();
+                });
+            }
+        }
+
+        public void alterarImagens(object sender, AssetRequestedEventArgs e)
+        {
+            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
+            {
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsImage();
+                    IRawTextureData imagemBuscada =
+                        _helper.ModContent.Load<IRawTextureData>("assets/ednaldopereira.png");
+                    editor.PatchImage(imagemBuscada, targetArea: new Rectangle(413, 305, 126, 28));
                 });
             }
         }
