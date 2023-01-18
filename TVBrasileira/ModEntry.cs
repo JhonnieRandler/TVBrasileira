@@ -8,12 +8,14 @@ namespace TVBrasileira
 {
     public class ModEntry : Mod
     {
+        private ModConfig Config;
         public override void Entry(IModHelper helper)
         {
+            this.Config = this.Helper.ReadConfig<ModConfig>();
             I18n.Init(helper.Translation);
-            var ednaldoPereira = new EdnaldoPereira(helper);
-            var palmirinha = new Palmirinha(helper);
-            var globoRural = new GloboRural(helper);
+            var ednaldoPereira = new EdnaldoPereira(helper, this.Config.EdnaldoPereira);
+            var palmirinha = new Palmirinha(helper, this.Config.Palmirinha);
+            var globoRural = new GloboRural(helper, this.Config.GloboRural);
         }
     }
 }
