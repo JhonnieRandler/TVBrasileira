@@ -57,5 +57,10 @@
   "204": "E na matéria de hoje: estudos revelam que a criatura do reino animal que mais faz corpo mole é a minhoca! Aprenda a construir um minhocário e garanta a eficiência dos seus anelídeos!",
   "211": "E no último fim de semana, uma ovelha invadiu uma LAN house e causou tumulto! O fazendeiro responsável teve que responder às autoridades locais. Após os comerciais, o Globo Rural te ensinará a deixar suas ovelhas felizes...",
   "218": "Você sabia que as vacas argentinas passam o dia olhando para o céu? Especialistas acreditam que elas procuram boi nos ares! Aprenda a tratar vacas com torcicolo na matéria a seguir...",
-  "221": "Pessoal, tenho um anúncio a fazer. Este foi o último episódio de \"Globo Rural\" antes da nossa aposentadoria. Eu me diverti muito e sentirei falta de todos vocês. Ah, e ouvi falar que as emissoras vão exibir reprises no ano que vem.^^ Cuidem-se!"
+  "221": "Pessoal, tenho um anúncio a fazer. Este foi o último episódio de \"Globo Rural\" antes da nossa aposentadoria. Eu me diverti muito e sentirei falta de todos vocês. Ah, e ouvi falar que as emissoras vão exibir reprises no ano que vem.^^ Cuidem-se!",
+  
+  //GMCM
+  "tooltip-palmirinha": "Ativar o Programa da Palmirinha (Substitui o \"Rainha do Molho\")",
+  "tooltip-ednaldo": "Ativar o Previsões do Mestre (Substitui o \"Previsão do Tempo\")",
+  "tooltip-globo-rural": "Ativar o Globo Rural (Substitui o \"Vivendo da Terra\")",
 }

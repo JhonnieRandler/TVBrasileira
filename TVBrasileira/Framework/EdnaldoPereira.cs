@@ -13,11 +13,11 @@ namespace TVBrasileira.Framework
         {
             _config = config;
             _helper = helper;
-            _helper.Events.Content.AssetRequested += AlterarDialogos;
-            _helper.Events.Content.AssetRequested += AlterarImagens;
+            _helper.Events.Content.AssetRequested += ChangeDialogs;
+            _helper.Events.Content.AssetRequested += ChangeImages;
         }
         
-        public void AlterarDialogos(object sender, AssetRequestedEventArgs e)
+        public void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
             {
@@ -47,7 +47,7 @@ namespace TVBrasileira.Framework
             }
         }
 
-        public void AlterarImagens(object sender, AssetRequestedEventArgs e)
+        public void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
             if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
             {

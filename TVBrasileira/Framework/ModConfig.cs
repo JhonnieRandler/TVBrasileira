@@ -2,15 +2,15 @@ namespace TVBrasileira.Framework
 {
     public class ModConfig
     {
-        public bool Palmirinha { get; set; }
-        public bool GloboRural { get; set; }
-        public bool EdnaldoPereira { get; set; }
+        public bool PalmirinhaToggle { get; set; }
+        public bool GloboRuralToggle { get; set; }
+        public bool EdnaldoPereiraToggle { get; set; }
 
         public ModConfig()
         {
-            this.EdnaldoPereira = true;
-            this.Palmirinha = true;
-            this.GloboRural = true;
+            EdnaldoPereiraToggle = true;
+            PalmirinhaToggle = true;
+            GloboRuralToggle = true;
         }
     }
 }

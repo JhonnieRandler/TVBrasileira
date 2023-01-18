@@ -11,15 +11,6 @@
 
     <ItemGroup>
       <Compile Remove="Class1.cs" />
-      <Compile Remove="Framework\GenericModConfigMenu\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="Framework\GenericModConfigMenu\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Framework\GenericModConfigMenu\**" />
     </ItemGroup>
 
 </Project>
