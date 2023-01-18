@@ -11,15 +11,15 @@ namespace TVBrasileira.Framework
         
         public Palmirinha(IModHelper helper, bool config)
         {
-            _config = config;
-            _helper = helper;
-            _helper.Events.Content.AssetRequested += ChangeDialogs;
-            _helper.Events.Content.AssetRequested += ChangeImages;
+            this._config = config;
+            this._helper = helper;
+            this._helper.Events.Content.AssetRequested += this.ChangeDialogs;
+            this._helper.Events.Content.AssetRequested += this.ChangeImages;
         }
         
         public void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
-            if (_config == true)
+            if (this._config)
             {
                 if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
                 {
@@ -38,7 +38,7 @@ namespace TVBrasileira.Framework
 
         public void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            if (_config == true)
+            if (this._config)
             {
                 if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
                 {
@@ -46,7 +46,7 @@ namespace TVBrasileira.Framework
                     {
                         var editor = asset.AsImage();
                         IRawTextureData palmirinhapng =
-                            _helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
+                            this._helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
                         editor.PatchImage(palmirinhapng, targetArea: new Rectangle(602, 361, 84, 28));
                     });
                 }

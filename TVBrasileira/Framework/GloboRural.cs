@@ -11,15 +11,15 @@ namespace TVBrasileira.Framework
         
         public GloboRural(IModHelper helper, bool config)
         {
-            _config = config;
-            _helper = helper;
-            _helper.Events.Content.AssetRequested += ChangeDialogs;
-            _helper.Events.Content.AssetRequested += ChangeImages;
+            this._config = config;
+            this._helper = helper;
+            this._helper.Events.Content.AssetRequested += this.ChangeDialogs;
+            this._helper.Events.Content.AssetRequested += this.ChangeImages;
         }
         
         public void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
-            if (_config == true)
+            if (this._config)
             {
                 if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
                 {
@@ -76,7 +76,7 @@ namespace TVBrasileira.Framework
 
         public void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            if (_config == true)
+            if (this._config)
             {
                 if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
                 {
@@ -84,7 +84,7 @@ namespace TVBrasileira.Framework
                     {
                         var editor = asset.AsImage();
                         IRawTextureData globoruralpng =
-                            _helper.ModContent.Load<IRawTextureData>("assets/globorural.png");
+                            this._helper.ModContent.Load<IRawTextureData>("assets/globorural.png");
                         editor.PatchImage(globoruralpng, targetArea: new Rectangle(517, 361, 84, 28));
                     });
                 }
