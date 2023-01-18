@@ -5,7 +5,7 @@
   "Description": "Adiciona a cultura brasileira nos seus canais de TV.",
   "UniqueID": "JhonnieMike.BrasilTV",
   "EntryDll": "TVBrasileira.dll",
-  "MinimumApiVersion": "3.13.2",
+  "MinimumApiVersion": "3.18.1",
   "UpdateKeys": [
     "Nexus: 10843"
   ]
