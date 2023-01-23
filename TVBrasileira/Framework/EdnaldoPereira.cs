@@ -6,18 +6,28 @@ namespace TVBrasileira.Framework
 {
     public class EdnaldoPereira
     {
-        private IModHelper _helper;
-        private bool _config;
+        private readonly IModHelper _helper;
+        private readonly IMonitor _monitor;
+        private ModConfig _config;
         
-        public EdnaldoPereira(IModHelper helper, bool config)
+        public EdnaldoPereira(IModHelper helper, IMonitor monitor)
         {
-            this._config = config;
             this._helper = helper;
+            this._monitor = monitor;
+            this._helper.Events.Content.AssetRequested += this.Logger;
             this._helper.Events.Content.AssetRequested += this.ChangeDialogs;
             this._helper.Events.Content.AssetRequested += this.ChangeImages;
         }
         
-        public void ChangeDialogs(object sender, AssetRequestedEventArgs e)
+        private void Logger(object sender, AssetRequestedEventArgs e)
+        {
+            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
+            {
+                _monitor.Log("Asset Requested (LooseSprites/Cursors) event raised", LogLevel.Trace);
+            }
+        }
+        
+        private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
             {
@@ -36,7 +46,8 @@ namespace TVBrasileira.Framework
                     editor.Data["TV.cs.13189"] = I18n.WindCloudyEdnaldo();
                     editor.Data["TV.cs.13190"] = I18n.BlizzardEdnaldo();
                     editor.Data["TV_IslandWeatherIntro"] = I18n.IslandEdnaldo();
-                    if (this._config)
+                    this._config = this._helper.ReadConfig<ModConfig>();
+                    if (_config.EdnaldoPereiraToggle)
                     {
                         editor.Data["TV.cs.13136"] = I18n.IntroEdnaldo();
                     }
@@ -47,16 +58,16 @@ namespace TVBrasileira.Framework
             }
         }
 
-        public void ChangeImages(object sender, AssetRequestedEventArgs e)
+        private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
             if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
             {
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
-                    IRawTextureData ednaldopereirapng =
-                        this._helper.ModContent.Load<IRawTextureData>("assets/ednaldopereira.png");
-                    editor.PatchImage(ednaldopereirapng, targetArea: new Rectangle(413, 305, 126, 28));
+                    IRawTextureData ednaldoPereiraTexture =
+                        this._helper.ModContent.Load<IRawTextureData>("assets/ednaldoPereira.png");
+                    editor.PatchImage(ednaldoPereiraTexture, targetArea: new Rectangle(413, 305, 126, 28));
                 });
             }
 
@@ -65,9 +76,10 @@ namespace TVBrasileira.Framework
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
-                    IRawTextureData eduanttunespng =
-                        this._helper.ModContent.Load<IRawTextureData>("assets/eduanttunes.png");
-                    editor.PatchImage(eduanttunespng, targetArea: new Rectangle(148, 62, 42, 28));
+                    IRawTextureData eduAnttunesTextures =
+                        this._helper.ModContent.Load<IRawTextureData>("assets/eduAnttunes.png");
+                    editor.PatchImage(eduAnttunesTextures, targetArea: new Rectangle(148, 62, 42, 28));
+                    _monitor.Log("Ednaldo's cursor", LogLevel.Trace);
                 });
             }
         }

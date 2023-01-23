@@ -60,6 +60,7 @@
   "221": "Pessoal, tenho um anúncio a fazer. Este foi o último episódio de \"Globo Rural\" antes da nossa aposentadoria. Eu me diverti muito e sentirei falta de todos vocês. Ah, e ouvi falar que as emissoras vão exibir reprises no ano que vem.^^ Cuidem-se!",
   
   //GMCM
+  "disabled-gmcm": "GenericModConfigMenu não está instalado, ignorando registro de menu.",
   "tooltip-palmirinha": "Ativar o Programa da Palmirinha (Substitui o \"Rainha do Molho\")",
   "tooltip-ednaldo": "Ativar o Previsões do Mestre (Substitui o \"Previsão do Tempo\")",
   "tooltip-globo-rural": "Ativar o Globo Rural (Substitui o \"Vivendo da Terra\")",

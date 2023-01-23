@@ -6,12 +6,12 @@ namespace TVBrasileira.Framework
 {
     public class Palmirinha
     {
-        private IModHelper _helper;
-        private bool _config;
+        private readonly IModHelper _helper;
+        private ModConfig _config;
+
         
-        public Palmirinha(IModHelper helper, bool config)
+        public Palmirinha(IModHelper helper)
         {
-            this._config = config;
             this._helper = helper;
             this._helper.Events.Content.AssetRequested += this.ChangeDialogs;
             this._helper.Events.Content.AssetRequested += this.ChangeImages;
@@ -19,7 +19,8 @@ namespace TVBrasileira.Framework
         
         public void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
-            if (this._config)
+            this._config = this._helper.ReadConfig<ModConfig>();
+            if (_config.PalmirinhaToggle)
             {
                 if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
                 {
@@ -36,18 +37,19 @@ namespace TVBrasileira.Framework
             }
         }
 
-        public void ChangeImages(object sender, AssetRequestedEventArgs e)
+        private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            if (this._config)
+            this._config = this._helper.ReadConfig<ModConfig>();
+            if (_config.PalmirinhaToggle)
             {
                 if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
                 {
                     e.Edit(asset =>
                     {
                         var editor = asset.AsImage();
-                        IRawTextureData palmirinhapng =
+                        IRawTextureData palmirinhaTexture =
                             this._helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
-                        editor.PatchImage(palmirinhapng, targetArea: new Rectangle(602, 361, 84, 28));
+                        editor.PatchImage(palmirinhaTexture, targetArea: new Rectangle(602, 361, 84, 28));
                     });
                 }
             }

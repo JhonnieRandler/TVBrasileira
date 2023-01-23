@@ -8,5 +8,11 @@
   "MinimumApiVersion": "3.18.1",
   "UpdateKeys": [
     "Nexus: 10843"
+  ],
+  "Dependencies": [
+    {
+      "UniqueID": "spacechase0.GenericModConfigMenu",
+      "IsRequired": false
+    }
   ]
 }

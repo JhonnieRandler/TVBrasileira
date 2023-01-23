@@ -6,20 +6,20 @@ namespace TVBrasileira.Framework
 {
     public class GloboRural
     {
-        private IModHelper _helper;
-        private bool _config;
-        
-        public GloboRural(IModHelper helper, bool config)
+        private readonly IModHelper _helper;
+        private ModConfig _config;
+
+        public GloboRural(IModHelper helper)
         {
-            this._config = config;
             this._helper = helper;
             this._helper.Events.Content.AssetRequested += this.ChangeDialogs;
             this._helper.Events.Content.AssetRequested += this.ChangeImages;
         }
         
-        public void ChangeDialogs(object sender, AssetRequestedEventArgs e)
+        private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
-            if (this._config)
+            this._config = this._helper.ReadConfig<ModConfig>();
+            if (_config.GloboRuralToggle)
             {
                 if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
                 {
@@ -74,18 +74,19 @@ namespace TVBrasileira.Framework
             }
         }
 
-        public void ChangeImages(object sender, AssetRequestedEventArgs e)
+        private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            if (this._config)
+            this._config = this._helper.ReadConfig<ModConfig>();
+            if (_config.GloboRuralToggle)
             {
                 if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
                 {
                     e.Edit(asset =>
                     {
                         var editor = asset.AsImage();
-                        IRawTextureData globoruralpng =
-                            this._helper.ModContent.Load<IRawTextureData>("assets/globorural.png");
-                        editor.PatchImage(globoruralpng, targetArea: new Rectangle(517, 361, 84, 28));
+                        IRawTextureData globoRuralTexture =
+                            this._helper.ModContent.Load<IRawTextureData>("assets/globoRural.png");
+                        editor.PatchImage(globoRuralTexture, targetArea: new Rectangle(517, 361, 84, 28));
                     });
                 }
             }

@@ -3,34 +3,39 @@ using StardewModdingAPI.Events;
 
 namespace TVBrasileira.Framework.GenericModConfigMenu
 {
-    public class ConfigureGMCM
+    public class ModConfigMenu
     {
-        private IModHelper _helper;
-        private ModConfig _config;
-        private IManifest _modManifest;
+        private readonly IModHelper _helper;
+        private readonly IManifest _modManifest;
+        private readonly IMonitor _monitor;
+        private  ModConfig _config;
 
-        public ConfigureGMCM(IModHelper helper, ModConfig config, IManifest modManifest)
+        public ModConfigMenu(IModHelper helper, ModConfig config, IManifest modManifest, IMonitor monitor)
         {
+            this._monitor = monitor;
             this._helper = helper;
             this._config = config;
             this._modManifest = modManifest;
             this._helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
         }
-        
-        public void OnGameLaunched(object sender, GameLaunchedEventArgs e)
+
+        private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
-            var configMenu =
+            var configMenuApi =
                 this._helper.ModRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
-            if (configMenu is null)
+            if (configMenuApi is null)
+            {
+                _monitor.Log(I18n.DisabledGmcm(), LogLevel.Info);
                 return;
-            
-            configMenu.Register(
+            }
+
+            configMenuApi.Register(
                 mod: this._modManifest,
                 reset: () => this._config = new ModConfig(),
                 save: () => this._helper.WriteConfig(_config)
             );
             
-            configMenu.AddBoolOption(
+            configMenuApi.AddBoolOption(
                 mod: this._modManifest,
                 name: () => I18n.TitleEdnaldo(),
                 tooltip: () => I18n.TooltipEdnaldo(),
@@ -38,7 +43,7 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
                 setValue: value => this._config.EdnaldoPereiraToggle = value
             );
             
-            configMenu.AddBoolOption(
+            configMenuApi.AddBoolOption(
                 mod: this._modManifest,
                 name: () => I18n.TitlePalmirinha(),
                 tooltip: () => I18n.TooltipPalmirinha(),
@@ -46,7 +51,7 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
                 setValue: value => this._config.PalmirinhaToggle = value
             );
             
-            configMenu.AddBoolOption(
+            configMenuApi.AddBoolOption(
                 mod: this._modManifest,
                 name: () => I18n.TitleGloboRural(),
                 tooltip: () => I18n.TooltipGloboRural(),

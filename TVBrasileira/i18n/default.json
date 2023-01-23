@@ -60,6 +60,7 @@
   "221": "Folks, I've got an announcement to make. This is the last new episode of Rural Globe before our retirement. I've had a good time, and I'll miss you folks. Oh, and I've been told the station's going to start playing reruns next year. ^^Take care!",
 
   //GMCM
+  "disabled-gmcm": "GenericModConfigMenu not installed, skipping menu registry.",
   "tooltip-palmirinha": "Enable Palmirinha Program (Overrides \"The Queen of Sauce\")",
   "tooltip-ednaldo": "Enable Master's Forecast (Overrides the \"Weather Report\")",
   "tooltip-globo-rural": "Enable the Rural Globe (Overrides \"Livin' off the Land\")",
