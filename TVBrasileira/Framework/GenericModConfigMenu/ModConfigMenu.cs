@@ -10,11 +10,11 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
         private readonly IMonitor _monitor;
         private  ModConfig _config;
 
-        public ModConfigMenu(IModHelper helper, ModConfig config, IManifest modManifest, IMonitor monitor)
+        public ModConfigMenu(IModHelper helper, IManifest modManifest, IMonitor monitor)
         {
             this._monitor = monitor;
             this._helper = helper;
-            this._config = config;
+            this._config = helper.ReadConfig<ModConfig>();
             this._modManifest = modManifest;
             this._helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
         }
@@ -32,7 +32,8 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
             configMenuApi.Register(
                 mod: this._modManifest,
                 reset: () => this._config = new ModConfig(),
-                save: () => this._helper.WriteConfig(_config)
+                save: () => CommitConfig(),
+                titleScreenOnly: false
             );
             
             configMenuApi.AddBoolOption(
@@ -58,6 +59,15 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
                 getValue: () => this._config.GloboRuralToggle,
                 setValue: value => this._config.GloboRuralToggle = value
             );
+        }
+        
+        private void CommitConfig()
+        {
+            this._helper.WriteConfig(_config);
+            _helper.GameContent.InvalidateCache("LooseSprites/Cursors");
+            _helper.GameContent.InvalidateCache("LooseSprites/Cursors2");
+            _helper.GameContent.InvalidateCache("Strings/StringsFromCSFiles");
+            _helper.GameContent.InvalidateCache("Data/TV/TipChannel");
         }
     }
 }

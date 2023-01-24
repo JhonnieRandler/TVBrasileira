@@ -11,8 +11,8 @@ namespace TVBrasileira
         {
             I18n.Init(helper.Translation);
             this._config = helper.ReadConfig<ModConfig>();
-            var configMenu = new ModConfigMenu(helper, this._config, this.ModManifest, Monitor);
-            var ednaldoPereira = new EdnaldoPereira(helper, Monitor);
+            var configMenu = new ModConfigMenu(helper, this.ModManifest, Monitor);
+            var ednaldoPereira = new EdnaldoPereira(helper);
             var palmirinha = new Palmirinha(helper);
             var globoRural = new GloboRural(helper);
         }

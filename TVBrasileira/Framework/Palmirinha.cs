@@ -17,41 +17,37 @@ namespace TVBrasileira.Framework
             this._helper.Events.Content.AssetRequested += this.ChangeImages;
         }
         
-        public void ChangeDialogs(object sender, AssetRequestedEventArgs e)
+        private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
             this._config = this._helper.ReadConfig<ModConfig>();
-            if (_config.PalmirinhaToggle)
+            if (!_config.PalmirinhaToggle) return;
+            if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
             {
-                if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
+                e.Edit(asset =>
                 {
-                    e.Edit(asset =>
-                    {
-                        var editor = asset.AsDictionary<string, string>();
-                        editor.Data["TV.cs.13114"] = I18n.TitlePalmirinha();
-                        editor.Data["TV.cs.13117"] = I18n.RerunPalmirinha();
-                        editor.Data["TV.cs.13127"] = I18n.IntroPalmirinha();
-                        editor.Data["TV.cs.13151"] = I18n.LearnedPalmirinha();
-                        editor.Data["TV.cs.13153"] = I18n.OutroPalmirinha();
-                    });
-                }
+                    var editor = asset.AsDictionary<string, string>();
+                    editor.Data["TV.cs.13114"] = I18n.TitlePalmirinha();
+                    editor.Data["TV.cs.13117"] = I18n.RerunPalmirinha();
+                    editor.Data["TV.cs.13127"] = I18n.IntroPalmirinha();
+                    editor.Data["TV.cs.13151"] = I18n.LearnedPalmirinha();
+                    editor.Data["TV.cs.13153"] = I18n.OutroPalmirinha();
+                });
             }
         }
 
         private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
             this._config = this._helper.ReadConfig<ModConfig>();
-            if (_config.PalmirinhaToggle)
+            if (!_config.PalmirinhaToggle) return;
+            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
             {
-                if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
+                e.Edit(asset =>
                 {
-                    e.Edit(asset =>
-                    {
-                        var editor = asset.AsImage();
-                        IRawTextureData palmirinhaTexture =
-                            this._helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
-                        editor.PatchImage(palmirinhaTexture, targetArea: new Rectangle(602, 361, 84, 28));
-                    });
-                }
+                    var editor = asset.AsImage();
+                    IRawTextureData palmirinhaTexture =
+                        this._helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
+                    editor.PatchImage(palmirinhaTexture, targetArea: new Rectangle(602, 361, 84, 28));
+                });
             }
         }
     }

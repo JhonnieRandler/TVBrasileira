@@ -7,26 +7,15 @@ namespace TVBrasileira.Framework
     public class EdnaldoPereira
     {
         private readonly IModHelper _helper;
-        private readonly IMonitor _monitor;
         private ModConfig _config;
         
-        public EdnaldoPereira(IModHelper helper, IMonitor monitor)
+        public EdnaldoPereira(IModHelper helper)
         {
             this._helper = helper;
-            this._monitor = monitor;
-            this._helper.Events.Content.AssetRequested += this.Logger;
             this._helper.Events.Content.AssetRequested += this.ChangeDialogs;
             this._helper.Events.Content.AssetRequested += this.ChangeImages;
         }
-        
-        private void Logger(object sender, AssetRequestedEventArgs e)
-        {
-            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
-            {
-                _monitor.Log("Asset Requested (LooseSprites/Cursors) event raised", LogLevel.Trace);
-            }
-        }
-        
+
         private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
@@ -79,7 +68,6 @@ namespace TVBrasileira.Framework
                     IRawTextureData eduAnttunesTextures =
                         this._helper.ModContent.Load<IRawTextureData>("assets/eduAnttunes.png");
                     editor.PatchImage(eduAnttunesTextures, targetArea: new Rectangle(148, 62, 42, 28));
-                    _monitor.Log("Ednaldo's cursor", LogLevel.Trace);
                 });
             }
         }
