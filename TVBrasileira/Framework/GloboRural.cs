@@ -6,20 +6,20 @@ namespace TVBrasileira.Framework
 {
     public class GloboRural
     {
-        private readonly IModHelper _helper;
-        private ModConfig _config;
+        private readonly IModHelper helper;
+        private ModConfig config;
 
         public GloboRural(IModHelper helper)
         {
-            this._helper = helper;
-            this._helper.Events.Content.AssetRequested += this.ChangeDialogs;
-            this._helper.Events.Content.AssetRequested += this.ChangeImages;
+            this.helper = helper;
+            this.helper.Events.Content.AssetRequested += this.ChangeDialogs;
+            this.helper.Events.Content.AssetRequested += this.ChangeImages;
         }
         
         private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
-            this._config = this._helper.ReadConfig<ModConfig>();
-            if (!_config.GloboRuralToggle) return;
+            this.config = this.helper.ReadConfig<ModConfig>();
+            if (!this.config.GloboRuralToggle) return;
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
             {
                 e.Edit(asset =>
@@ -74,15 +74,15 @@ namespace TVBrasileira.Framework
 
         private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            this._config = this._helper.ReadConfig<ModConfig>();
-            if (!_config.GloboRuralToggle) return;
+            this.config = this.helper.ReadConfig<ModConfig>();
+            if (!this.config.GloboRuralToggle) return;
             if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
             {
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
                     IRawTextureData globoRuralTexture =
-                        this._helper.ModContent.Load<IRawTextureData>("assets/globoRural.png");
+                        this.helper.ModContent.Load<IRawTextureData>("assets/globoRural.png");
                     editor.PatchImage(globoRuralTexture, targetArea: new Rectangle(517, 361, 84, 28));
                 });
             }

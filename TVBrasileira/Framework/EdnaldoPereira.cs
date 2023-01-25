@@ -6,14 +6,14 @@ namespace TVBrasileira.Framework
 {
     public class EdnaldoPereira
     {
-        private readonly IModHelper _helper;
-        private ModConfig _config;
+        private readonly IModHelper helper;
+        private ModConfig config;
         
         public EdnaldoPereira(IModHelper helper)
         {
-            this._helper = helper;
-            this._helper.Events.Content.AssetRequested += this.ChangeDialogs;
-            this._helper.Events.Content.AssetRequested += this.ChangeImages;
+            this.helper = helper;
+            this.helper.Events.Content.AssetRequested += this.ChangeDialogs;
+            this.helper.Events.Content.AssetRequested += this.ChangeImages;
         }
 
         private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
@@ -35,8 +35,8 @@ namespace TVBrasileira.Framework
                     editor.Data["TV.cs.13189"] = I18n.WindCloudyEdnaldo();
                     editor.Data["TV.cs.13190"] = I18n.BlizzardEdnaldo();
                     editor.Data["TV_IslandWeatherIntro"] = I18n.IslandEdnaldo();
-                    this._config = this._helper.ReadConfig<ModConfig>();
-                    if (_config.EdnaldoPereiraToggle)
+                    this.config = this.helper.ReadConfig<ModConfig>();
+                    if (this.config.EdnaldoPereiraToggle)
                     {
                         editor.Data["TV.cs.13136"] = I18n.IntroEdnaldo();
                     }
@@ -55,7 +55,7 @@ namespace TVBrasileira.Framework
                 {
                     var editor = asset.AsImage();
                     IRawTextureData ednaldoPereiraTexture =
-                        this._helper.ModContent.Load<IRawTextureData>("assets/ednaldoPereira.png");
+                        this.helper.ModContent.Load<IRawTextureData>("assets/ednaldoPereira.png");
                     editor.PatchImage(ednaldoPereiraTexture, targetArea: new Rectangle(413, 305, 126, 28));
                 });
             }
@@ -66,7 +66,7 @@ namespace TVBrasileira.Framework
                 {
                     var editor = asset.AsImage();
                     IRawTextureData eduAnttunesTextures =
-                        this._helper.ModContent.Load<IRawTextureData>("assets/eduAnttunes.png");
+                        this.helper.ModContent.Load<IRawTextureData>("assets/eduAnttunes.png");
                     editor.PatchImage(eduAnttunesTextures, targetArea: new Rectangle(148, 62, 42, 28));
                 });
             }

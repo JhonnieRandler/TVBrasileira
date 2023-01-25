@@ -6,21 +6,21 @@ namespace TVBrasileira.Framework
 {
     public class Palmirinha
     {
-        private readonly IModHelper _helper;
-        private ModConfig _config;
+        private readonly IModHelper helper;
+        private ModConfig config;
 
         
         public Palmirinha(IModHelper helper)
         {
-            this._helper = helper;
-            this._helper.Events.Content.AssetRequested += this.ChangeDialogs;
-            this._helper.Events.Content.AssetRequested += this.ChangeImages;
+            this.helper = helper;
+            this.helper.Events.Content.AssetRequested += this.ChangeDialogs;
+            this.helper.Events.Content.AssetRequested += this.ChangeImages;
         }
         
         private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
-            this._config = this._helper.ReadConfig<ModConfig>();
-            if (!_config.PalmirinhaToggle) return;
+            this.config = this.helper.ReadConfig<ModConfig>();
+            if (!this.config.PalmirinhaToggle) return;
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
             {
                 e.Edit(asset =>
@@ -37,15 +37,15 @@ namespace TVBrasileira.Framework
 
         private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            this._config = this._helper.ReadConfig<ModConfig>();
-            if (!_config.PalmirinhaToggle) return;
+            this.config = this.helper.ReadConfig<ModConfig>();
+            if (!this.config.PalmirinhaToggle) return;
             if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
             {
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
                     IRawTextureData palmirinhaTexture =
-                        this._helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
+                        this.helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
                     editor.PatchImage(palmirinhaTexture, targetArea: new Rectangle(602, 361, 84, 28));
                 });
             }
