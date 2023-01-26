@@ -38,7 +38,9 @@ You can also configure through the gear button in the Main Menu or configure the
 
 ## Credits
 
-- JhonnieRandler - Original creator and developer
-- Brukob - Developer
+- <ins>JhonnieRandler</ins> for creating the mod
+- <ins>JhonnieRandler & Brukob</ins> for developing
+- <ins>SMAPI</ins> for making the mod possible
+- <ins>Stardew Valley</ins> for being an amazing game
 
 We are planning to add more characters in the future. If you find errors or have cool ideas, remember to leave a message in the [posts tab](https://www.nexusmods.com/stardewvalley/mods/10843?tab=posts) over at Nexus!
