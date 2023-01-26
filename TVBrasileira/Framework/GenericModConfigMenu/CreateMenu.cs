@@ -74,7 +74,6 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
             _helper.WriteConfig(_config);
             
             string currentLocale = "";
-            
             if (_helper.GameContent.CurrentLocale != "")
                 currentLocale = "." + _helper.GameContent.CurrentLocale;
 

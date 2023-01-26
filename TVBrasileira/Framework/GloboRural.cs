@@ -7,7 +7,7 @@ namespace TVBrasileira.Framework
     public class GloboRural
     {
         private readonly IModHelper _helper;
-        private ModConfig _config;
+        private bool _isChannelEnabled;
         private static readonly Rectangle LivinOffTheLandArea = new(517, 361, 84, 28);
 
         private static IRawTextureData _globoRuralTexture;
@@ -22,8 +22,8 @@ namespace TVBrasileira.Framework
         
         private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
-            _config = _helper.ReadConfig<ModConfig>();
-            if (!_config.GloboRuralToggle) return;
+            _isChannelEnabled = _helper.ReadConfig<ModConfig>().GloboRuralToggle;
+            if (!_isChannelEnabled) return;
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
             {
                 e.Edit(asset =>
@@ -78,8 +78,8 @@ namespace TVBrasileira.Framework
 
         private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            _config = _helper.ReadConfig<ModConfig>();
-            if (!_config.GloboRuralToggle) return;
+            _isChannelEnabled = _helper.ReadConfig<ModConfig>().GloboRuralToggle;
+            if (!_isChannelEnabled) return;
             if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
             {
                 e.Edit(asset =>

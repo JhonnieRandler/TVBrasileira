@@ -7,11 +7,18 @@ namespace TVBrasileira.Framework
     public class EdnaldoPereira
     {
         private readonly IModHelper _helper;
-        private ModConfig _config;
+        private bool _isChannelEnabled;
+        private static readonly Rectangle WeatherReportArea = new(413, 305, 126, 28);
+        private static readonly Rectangle IslandReportArea = new(148, 62, 42, 28);
+
+        private static IRawTextureData _ednaldoPereiraTexture;
+        private static IRawTextureData _eduAnttunesTexture;
         
         public EdnaldoPereira(IModHelper helper)
         {
             _helper = helper;
+            _ednaldoPereiraTexture =  _helper.ModContent.Load<IRawTextureData>("assets/ednaldoPereira.png");
+            _eduAnttunesTexture = _helper.ModContent.Load<IRawTextureData>("assets/eduAnttunes.png");
             _helper.Events.Content.AssetRequested += ChangeDialogs;
             _helper.Events.Content.AssetRequested += ChangeImages;
         }
@@ -24,6 +31,7 @@ namespace TVBrasileira.Framework
                 {
                     var editor = asset.AsDictionary<string, string>();
                     editor.Data["TV.cs.13105"] = I18n.TitleEdnaldo();
+                    editor.Data["TV.cs.13136"] = I18n.DisabledEdnaldo();
                     editor.Data["TV.cs.13175"] = I18n.FestivalEdnaldo();
                     editor.Data["TV.cs.13180"] = I18n.SnowEdnaldo();
                     editor.Data["TV.cs.13181"] = I18n.AltSnowEdnaldo();
@@ -35,14 +43,9 @@ namespace TVBrasileira.Framework
                     editor.Data["TV.cs.13189"] = I18n.WindCloudyEdnaldo();
                     editor.Data["TV.cs.13190"] = I18n.BlizzardEdnaldo();
                     editor.Data["TV_IslandWeatherIntro"] = I18n.IslandEdnaldo();
-                    _config = _helper.ReadConfig<ModConfig>();
-                    if (_config.EdnaldoPereiraToggle)
-                    {
+                    _isChannelEnabled = _helper.ReadConfig<ModConfig>().EdnaldoPereiraToggle;
+                    if (_isChannelEnabled)
                         editor.Data["TV.cs.13136"] = I18n.IntroEdnaldo();
-                    }
-                    else {
-                        editor.Data["TV.cs.13136"] = I18n.DisabledEdnaldo();
-                    }
                 });
             }
         }
@@ -54,9 +57,7 @@ namespace TVBrasileira.Framework
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
-                    IRawTextureData ednaldoPereiraTexture =
-                        _helper.ModContent.Load<IRawTextureData>("assets/ednaldoPereira.png");
-                    editor.PatchImage(ednaldoPereiraTexture, targetArea: new Rectangle(413, 305, 126, 28));
+                    editor.PatchImage(_ednaldoPereiraTexture, targetArea: WeatherReportArea);
                 });
             }
 
@@ -65,9 +66,7 @@ namespace TVBrasileira.Framework
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
-                    IRawTextureData eduAnttunesTextures =
-                        _helper.ModContent.Load<IRawTextureData>("assets/eduAnttunes.png");
-                    editor.PatchImage(eduAnttunesTextures, targetArea: new Rectangle(148, 62, 42, 28));
+                    editor.PatchImage(_eduAnttunesTexture, targetArea: IslandReportArea);
                 });
             }
         }

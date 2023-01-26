@@ -7,19 +7,23 @@ namespace TVBrasileira.Framework
     public class Palmirinha
     {
         private readonly IModHelper _helper;
-        private ModConfig _config;
+        private bool _isChannelEnabled;
+        private static readonly Rectangle QueenOfSauceArea = new(602, 361, 84, 28);
 
+        private static IRawTextureData _palmirinhaTexture;
+        
         public Palmirinha(IModHelper helper)
         {
             _helper = helper;
+            _palmirinhaTexture = _helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
             _helper.Events.Content.AssetRequested += ChangeDialogs;
             _helper.Events.Content.AssetRequested += ChangeImages;
         }
         
         private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
-            _config = _helper.ReadConfig<ModConfig>();
-            if (!_config.PalmirinhaToggle) return;
+            _isChannelEnabled = _helper.ReadConfig<ModConfig>().PalmirinhaToggle;
+            if (!_isChannelEnabled) return;
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
             {
                 e.Edit(asset =>
@@ -36,16 +40,14 @@ namespace TVBrasileira.Framework
 
         private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            _config = _helper.ReadConfig<ModConfig>();
-            if (!_config.PalmirinhaToggle) return;
+            _isChannelEnabled = _helper.ReadConfig<ModConfig>().PalmirinhaToggle;
+            if (!_isChannelEnabled) return;
             if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
             {
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
-                    IRawTextureData palmirinhaTexture =
-                        _helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
-                    editor.PatchImage(palmirinhaTexture, targetArea: new Rectangle(602, 361, 84, 28));
+                    editor.PatchImage(_palmirinhaTexture, targetArea: QueenOfSauceArea);
                 });
             }
         }
