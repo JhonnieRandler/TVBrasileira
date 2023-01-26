@@ -6,10 +6,10 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
 {
     public class CreateMenu
     {
-        private readonly IModHelper helper;
-        private readonly IManifest modManifest;
-        private readonly IMonitor monitor;
-        private  ModConfig config;
+        private readonly IModHelper _helper;
+        private readonly IManifest _modManifest;
+        private readonly IMonitor _monitor;
+        private  ModConfig _config;
         
         private readonly List<string> _patchedAssets = new()
         {
@@ -20,76 +20,69 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
         };
         
         public CreateMenu(IModHelper helper, IManifest modManifest, IMonitor monitor) {
-            this.monitor = monitor;
-            this.helper = helper;
-            this.config = helper.ReadConfig<ModConfig>();
-            this.modManifest = modManifest;
-            this.helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
+            _monitor = monitor;
+            _helper = helper;
+            _config = helper.ReadConfig<ModConfig>();
+            _modManifest = modManifest;
+            _helper.Events.GameLoop.GameLaunched += OnGameLaunched;
         }
         
         private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
             var configMenuApi =
-                this.helper.ModRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
+                _helper.ModRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
             if (configMenuApi is null)
             {
-                this.monitor.Log(I18n.DisabledGmcm(), LogLevel.Info);
+                _monitor.Log(I18n.DisabledGmcm(), LogLevel.Info);
                 return;
             }
 
             configMenuApi.Register(
-                mod: this.modManifest,
-                reset: () => this.config = new ModConfig(),
+                mod: _modManifest,
+                reset: () => _config = new ModConfig(),
                 save: CommitConfig,
                 titleScreenOnly: false
             );
             
             configMenuApi.AddBoolOption(
-                mod: this.modManifest,
+                mod: _modManifest,
                 name: () => I18n.TitleEdnaldo(),
                 tooltip: () => I18n.TooltipEdnaldo(),
-                getValue: () => this.config.EdnaldoPereiraToggle,
-                setValue: value => this.config.EdnaldoPereiraToggle = value
+                getValue: () => _config.EdnaldoPereiraToggle,
+                setValue: value => _config.EdnaldoPereiraToggle = value
             );
             
             configMenuApi.AddBoolOption(
-                mod: this.modManifest,
+                mod: _modManifest,
                 name: () => I18n.TitlePalmirinha(),
                 tooltip: () => I18n.TooltipPalmirinha(),
-                getValue: () => this.config.PalmirinhaToggle,
-                setValue: value => this.config.PalmirinhaToggle = value
+                getValue: () => _config.PalmirinhaToggle,
+                setValue: value => _config.PalmirinhaToggle = value
             );
             
             configMenuApi.AddBoolOption(
-                mod: this.modManifest,
+                mod: _modManifest,
                 name: () => I18n.TitleGloboRural(),
                 tooltip: () => I18n.TooltipGloboRural(),
-                getValue: () => this.config.GloboRuralToggle,
-                setValue: value => this.config.GloboRuralToggle = value
+                getValue: () => _config.GloboRuralToggle,
+                setValue: value => _config.GloboRuralToggle = value
             );
         }
         
         private void CommitConfig()
         {
-            this.helper.WriteConfig(this.config);
+            _helper.WriteConfig(_config);
             
-            string locale;
+            string currentLocale = "";
             
-            if (this.helper.GameContent.CurrentLocale != "")
-            {
-                locale = "." + this.helper.GameContent.CurrentLocale;
-            }
-            else
-            {
-                locale = "";
-            }
-            
+            if (_helper.GameContent.CurrentLocale != "")
+                currentLocale = "." + _helper.GameContent.CurrentLocale;
+
             foreach (var path in _patchedAssets)
             {
-                this.helper.GameContent.InvalidateCache(path);
-                this.helper.GameContent.InvalidateCache(path + locale);
+                _helper.GameContent.InvalidateCache(path);
+                _helper.GameContent.InvalidateCache(path + currentLocale);
             }
         }
     }
-    
 }

@@ -6,21 +6,20 @@ namespace TVBrasileira.Framework
 {
     public class Palmirinha
     {
-        private readonly IModHelper helper;
-        private ModConfig config;
+        private readonly IModHelper _helper;
+        private ModConfig _config;
 
-        
         public Palmirinha(IModHelper helper)
         {
-            this.helper = helper;
-            this.helper.Events.Content.AssetRequested += this.ChangeDialogs;
-            this.helper.Events.Content.AssetRequested += this.ChangeImages;
+            _helper = helper;
+            _helper.Events.Content.AssetRequested += ChangeDialogs;
+            _helper.Events.Content.AssetRequested += ChangeImages;
         }
         
         private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
-            this.config = this.helper.ReadConfig<ModConfig>();
-            if (!this.config.PalmirinhaToggle) return;
+            _config = _helper.ReadConfig<ModConfig>();
+            if (!_config.PalmirinhaToggle) return;
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
             {
                 e.Edit(asset =>
@@ -37,15 +36,15 @@ namespace TVBrasileira.Framework
 
         private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            this.config = this.helper.ReadConfig<ModConfig>();
-            if (!this.config.PalmirinhaToggle) return;
+            _config = _helper.ReadConfig<ModConfig>();
+            if (!_config.PalmirinhaToggle) return;
             if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
             {
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
                     IRawTextureData palmirinhaTexture =
-                        this.helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
+                        _helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
                     editor.PatchImage(palmirinhaTexture, targetArea: new Rectangle(602, 361, 84, 28));
                 });
             }

@@ -6,20 +6,24 @@ namespace TVBrasileira.Framework
 {
     public class GloboRural
     {
-        private readonly IModHelper helper;
-        private ModConfig config;
+        private readonly IModHelper _helper;
+        private ModConfig _config;
+        private static readonly Rectangle LivinOffTheLandArea = new(517, 361, 84, 28);
+
+        private static IRawTextureData _globoRuralTexture;
 
         public GloboRural(IModHelper helper)
         {
-            this.helper = helper;
-            this.helper.Events.Content.AssetRequested += this.ChangeDialogs;
-            this.helper.Events.Content.AssetRequested += this.ChangeImages;
+            _helper = helper;
+            _globoRuralTexture = _helper.ModContent.Load<IRawTextureData>("assets/globoRural.png");
+            _helper.Events.Content.AssetRequested += ChangeDialogs;
+            _helper.Events.Content.AssetRequested += ChangeImages;
         }
         
         private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
         {
-            this.config = this.helper.ReadConfig<ModConfig>();
-            if (!this.config.GloboRuralToggle) return;
+            _config = _helper.ReadConfig<ModConfig>();
+            if (!_config.GloboRuralToggle) return;
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
             {
                 e.Edit(asset =>
@@ -74,16 +78,14 @@ namespace TVBrasileira.Framework
 
         private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            this.config = this.helper.ReadConfig<ModConfig>();
-            if (!this.config.GloboRuralToggle) return;
+            _config = _helper.ReadConfig<ModConfig>();
+            if (!_config.GloboRuralToggle) return;
             if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
             {
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
-                    IRawTextureData globoRuralTexture =
-                        this.helper.ModContent.Load<IRawTextureData>("assets/globoRural.png");
-                    editor.PatchImage(globoRuralTexture, targetArea: new Rectangle(517, 361, 84, 28));
+                    editor.PatchImage(_globoRuralTexture, targetArea: LivinOffTheLandArea);
                 });
             }
         }
