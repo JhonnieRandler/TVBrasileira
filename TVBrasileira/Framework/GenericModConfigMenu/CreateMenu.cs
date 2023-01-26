@@ -13,9 +13,9 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
         
         private readonly List<string> _patchedAssets = new()
         {
-            "LooseSprites/Cursors", 
+            "LooseSprites/Cursors",
             "LooseSprites/Cursors2",
-            "Strings/StringsFromCSFiles", 
+            "Strings/StringsFromCSFiles",
             "Data/TV/TipChannel",
         };
         
