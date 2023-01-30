@@ -9,13 +9,13 @@ namespace TVBrasileira.channels
     public class EdnaldoPereira
     {
         private readonly IModHelper _helper;
-        private bool _isChannelEnabled;
         private static readonly Rectangle WeatherReportArea = new(413, 305, 126, 28);
         private static readonly Rectangle IslandReportArea = new(148, 62, 42, 28);
 
         private static IRawTextureData _ednaldoPereiraTexture;
         private static IRawTextureData _ednaldoIslandTexture;
 
+        private bool _isChannelEnabled;
         private string _farmerName;
         
         public EdnaldoPereira(IModHelper helper)
