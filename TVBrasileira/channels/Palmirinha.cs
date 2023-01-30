@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using TVBrasileira.Framework;
 
-namespace TVBrasileira.Framework
+namespace TVBrasileira.Channels
 {
     public class Palmirinha
     {

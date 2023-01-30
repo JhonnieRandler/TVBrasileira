@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewValley;
+using TVBrasileira.Framework;
 
-namespace TVBrasileira.Framework
+namespace TVBrasileira.Channels
 {
     public class EdnaldoPereira
     {
@@ -12,13 +14,13 @@ namespace TVBrasileira.Framework
         private static readonly Rectangle IslandReportArea = new(148, 62, 42, 28);
 
         private static IRawTextureData _ednaldoPereiraTexture;
-        private static IRawTextureData _eduAnttunesTexture;
+        private static IRawTextureData _ednaldoIslandTexture;
         
         public EdnaldoPereira(IModHelper helper)
         {
             _helper = helper;
             _ednaldoPereiraTexture =  _helper.ModContent.Load<IRawTextureData>("assets/ednaldoPereira.png");
-            _eduAnttunesTexture = _helper.ModContent.Load<IRawTextureData>("assets/eduAnttunes.png");
+            _ednaldoIslandTexture = _helper.ModContent.Load<IRawTextureData>("assets/ednaldoIsland.png");
             _helper.Events.Content.AssetRequested += ChangeDialogs;
             _helper.Events.Content.AssetRequested += ChangeImages;
         }
@@ -66,7 +68,7 @@ namespace TVBrasileira.Framework
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
-                    editor.PatchImage(_eduAnttunesTexture, targetArea: IslandReportArea);
+                    editor.PatchImage(_ednaldoIslandTexture, targetArea: IslandReportArea);
                 });
             }
         }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
-namespace TVBrasileira.Framework.GenericModConfigMenu
+namespace TVBrasileira.Framework
 {
     public class CreateMenu
     {
@@ -16,7 +16,7 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
             "LooseSprites/Cursors",
             "LooseSprites/Cursors2",
             "Strings/StringsFromCSFiles",
-            "Data/TV/TipChannel",
+            "Data/TV/TipChannel"
         };
         
         public CreateMenu(IModHelper helper, IManifest modManifest, IMonitor monitor) {
@@ -72,11 +72,10 @@ namespace TVBrasileira.Framework.GenericModConfigMenu
         private void CommitConfig()
         {
             _helper.WriteConfig(_config);
-            
-            string currentLocale = "";
-            if (_helper.GameContent.CurrentLocale != "")
-                currentLocale = "." + _helper.GameContent.CurrentLocale;
 
+            string currentLocale = _helper.GameContent.CurrentLocale != "" ? 
+                "." + _helper.GameContent.CurrentLocale : "";
+            
             foreach (var path in _patchedAssets)
             {
                 _helper.GameContent.InvalidateCache(path);
