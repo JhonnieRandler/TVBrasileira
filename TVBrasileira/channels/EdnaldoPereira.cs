@@ -79,8 +79,12 @@ namespace TVBrasileira.Channels
         private void OnSaveLoad(object sender, SaveLoadedEventArgs e)
         {
             _farmerName = Game1.player.Name;
+            
+            string currentLocale = _helper.GameContent.CurrentLocale != "" ? 
+                "." + _helper.GameContent.CurrentLocale : "";
+            
             _helper.GameContent.InvalidateCache("Strings/StringsFromCSFiles");
-            _helper.GameContent.InvalidateCache("Strings/StringsFromCSFiles.pt-BR");
+            _helper.GameContent.InvalidateCache("Strings/StringsFromCSFiles" + currentLocale);
         }
     }
 }
