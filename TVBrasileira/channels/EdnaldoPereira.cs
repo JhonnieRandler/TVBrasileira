@@ -15,6 +15,8 @@ namespace TVBrasileira.Channels
 
         private static IRawTextureData _ednaldoPereiraTexture;
         private static IRawTextureData _ednaldoIslandTexture;
+
+        private string _farmerName;
         
         public EdnaldoPereira(IModHelper helper)
         {
@@ -23,6 +25,7 @@ namespace TVBrasileira.Channels
             _ednaldoIslandTexture = _helper.ModContent.Load<IRawTextureData>("assets/ednaldoIsland.png");
             _helper.Events.Content.AssetRequested += ChangeDialogs;
             _helper.Events.Content.AssetRequested += ChangeImages;
+            _helper.Events.GameLoop.SaveLoaded += OnSaveLoad;
         }
 
         private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
@@ -33,7 +36,7 @@ namespace TVBrasileira.Channels
                 {
                     var editor = asset.AsDictionary<string, string>();
                     editor.Data["TV.cs.13105"] = I18n.TitleEdnaldo();
-                    editor.Data["TV.cs.13136"] = I18n.DisabledEdnaldo();
+                    editor.Data["TV.cs.13136"] = I18n.DisabledEdnaldo(_farmerName);
                     editor.Data["TV.cs.13175"] = I18n.FestivalEdnaldo();
                     editor.Data["TV.cs.13180"] = I18n.SnowEdnaldo();
                     editor.Data["TV.cs.13181"] = I18n.AltSnowEdnaldo();
@@ -71,6 +74,13 @@ namespace TVBrasileira.Channels
                     editor.PatchImage(_ednaldoIslandTexture, targetArea: IslandReportArea);
                 });
             }
+        }
+
+        private void OnSaveLoad(object sender, SaveLoadedEventArgs e)
+        {
+            _farmerName = Game1.player.Name;
+            _helper.GameContent.InvalidateCache("Strings/StringsFromCSFiles");
+            _helper.GameContent.InvalidateCache("Strings/StringsFromCSFiles.pt-BR");
         }
     }
 }
