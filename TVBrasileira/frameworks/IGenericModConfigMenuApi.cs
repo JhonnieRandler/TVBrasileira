@@ -1,7 +1,7 @@
 using System;
 using StardewModdingAPI;
 
-namespace TVBrasileira.Framework
+namespace TVBrasileira.frameworks
 {
     /// <summary>The API which lets other mods add a config UI through Generic Mod Config Menu.</summary>
     public interface IGenericModConfigMenuApi

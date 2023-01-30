@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using TVBrasileira.Framework;
+using TVBrasileira.frameworks;
 
-namespace TVBrasileira.Channels
+namespace TVBrasileira.channels
 {
     public class EdnaldoPereira
     {

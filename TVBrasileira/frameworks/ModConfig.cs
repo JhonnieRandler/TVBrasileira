@@ -1,4 +1,4 @@
-namespace TVBrasileira.Framework
+namespace TVBrasileira.frameworks
 {
     public class ModConfig
     {

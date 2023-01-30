@@ -1,6 +1,6 @@
 using StardewModdingAPI;
-using TVBrasileira.Framework;
-using TVBrasileira.Channels;
+using TVBrasileira.frameworks;
+using TVBrasileira.channels;
 
 namespace TVBrasileira
 {

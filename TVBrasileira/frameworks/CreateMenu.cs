@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
-namespace TVBrasileira.Framework
+namespace TVBrasileira.frameworks
 {
     public class CreateMenu
     {

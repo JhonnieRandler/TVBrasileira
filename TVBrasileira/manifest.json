@@ -1,7 +1,7 @@
 {
-  "Name": "TV Brasileira SMAPI",
+  "Name": "TV Brasileira",
   "Author": "JhonnieRandler & Brukob",
-  "Version": "1.1.0",
+  "Version": "2.0.0",
   "Description": "Introduz a cultura brasileira aos seus canais de TV.",
   "UniqueID": "JhonnieMike.BrasilTV",
   "EntryDll": "TVBrasileira.dll",
