@@ -67,6 +67,14 @@ namespace TVBrasileira.frameworks
                 getValue: () => _config.GloboRuralToggle,
                 setValue: value => _config.GloboRuralToggle = value
             );
+            
+            configMenuApi.AddBoolOption(
+                mod: _modManifest,
+                name: () => I18n.TitleSensitiveMarcia(),
+                tooltip: () => I18n.TooltipSensitiveMarcia(),
+                getValue: () => _config.SensitiveMarciaToggle,
+                setValue: value => _config.SensitiveMarciaToggle = value
+            );
         }
         
         private void CommitConfig()

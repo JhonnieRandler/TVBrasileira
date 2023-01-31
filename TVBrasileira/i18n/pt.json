@@ -58,10 +58,14 @@
   "211": "E no último fim de semana, uma ovelha invadiu uma LAN house e causou tumulto! O fazendeiro responsável teve que responder às autoridades locais. Após os comerciais, o Globo Rural te ensinará a deixar suas ovelhas felizes...",
   "218": "Você sabia que as vacas argentinas passam o dia olhando para o céu? Especialistas acreditam que elas procuram boi nos ares! Aprenda a tratar vacas com torcicolo na matéria a seguir...",
   "221": "Pessoal, tenho um anúncio a fazer. Este foi o último episódio de \"Globo Rural\" antes da nossa aposentadoria. Eu me diverti muito e sentirei falta de todos vocês. Ah, e ouvi falar que as emissoras vão exibir reprises no ano que vem.^^ Cuidem-se!",
+
+  //Sensitive Marcia
+  "title-sensitive-marcia": "Márcia Sensitiva",
   
   //GMCM
   "disabled-gmcm": "GenericModConfigMenu não está instalado, ignorando registro de menu.",
   "tooltip-palmirinha": "Ativar o Programa da Palmirinha (Substitui o \"Rainha do Molho\")",
   "tooltip-ednaldo": "Ativar o Previsões do Mestre (Substitui o \"Previsão do Tempo\")",
   "tooltip-globo-rural": "Ativar o Globo Rural (Substitui o \"Vivendo da Terra\")",
+  "tooltip-sensitive-marcia": "Ativar a Márcia Sensitiva (Substitui a \"Vidente\")"
 }

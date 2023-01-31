@@ -13,6 +13,7 @@ namespace TVBrasileira
             var ednaldoPereira = new EdnaldoPereira(helper);
             var palmirinha = new Palmirinha(helper);
             var globoRural = new GloboRural(helper);
+            var marciaSensitiva = new MarciaSensitiva(helper);
         }
     }
 }
