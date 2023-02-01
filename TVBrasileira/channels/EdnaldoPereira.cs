@@ -26,6 +26,7 @@ namespace TVBrasileira.channels
             _helper.Events.Content.AssetRequested += ChangeDialogs;
             _helper.Events.Content.AssetRequested += ChangeImages;
             _helper.Events.GameLoop.SaveLoaded += OnSaveLoad;
+            _helper.Events.GameLoop.UpdateTicked += FarmerNameChanged;
         }
 
         private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
@@ -79,7 +80,21 @@ namespace TVBrasileira.channels
         private void OnSaveLoad(object sender, SaveLoadedEventArgs e)
         {
             _farmerName = Game1.player.Name;
-            
+            InvalidateAssets();
+        }
+
+        private void FarmerNameChanged(object sender, UpdateTickedEventArgs e)
+        {
+            if (!Context.IsWorldReady)
+                return;
+            if (_farmerName == Game1.player.Name)
+                return;
+            _farmerName = Game1.player.Name;
+            InvalidateAssets();
+        }
+
+        private void InvalidateAssets()
+        {
             string currentLocale = _helper.GameContent.CurrentLocale != "" ? 
                 "." + _helper.GameContent.CurrentLocale : "";
             
