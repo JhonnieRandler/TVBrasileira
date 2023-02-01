@@ -10,9 +10,9 @@ namespace TVBrasileira
         {
             I18n.Init(helper.Translation);
             var configMenu = new CreateMenu(helper, ModManifest, Monitor);
-            var ednaldoPereira = new EdnaldoPereira(helper);
-            var palmirinha = new Palmirinha(helper);
-            var globoRural = new GloboRural(helper);
+            var ednaldoPereira = new EdnaldoPereira(helper, Monitor);
+            var palmirinha = new Palmirinha(helper, Monitor);
+            var globoRural = new GloboRural(helper, Monitor);
         }
     }
 }
