@@ -23,13 +23,13 @@ namespace TVBrasileira.channels
             _helper = helper;
             _ednaldoPereiraTexture =  _helper.ModContent.Load<IRawTextureData>("assets/ednaldoPereira.png");
             _ednaldoIslandTexture = _helper.ModContent.Load<IRawTextureData>("assets/ednaldoIsland.png");
-            _helper.Events.Content.AssetRequested += ChangeDialogs;
+            _helper.Events.Content.AssetRequested += ChangeDialogues;
             _helper.Events.Content.AssetRequested += ChangeImages;
             _helper.Events.GameLoop.SaveLoaded += OnSaveLoad;
             _helper.Events.GameLoop.UpdateTicked += FarmerNameChanged;
         }
 
-        private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
+        private void ChangeDialogues(object sender, AssetRequestedEventArgs e)
         {
             if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
             {

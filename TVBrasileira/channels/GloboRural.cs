@@ -17,11 +17,11 @@ namespace TVBrasileira.channels
         {
             _helper = helper;
             _globoRuralTexture = _helper.ModContent.Load<IRawTextureData>("assets/globoRural.png");
-            _helper.Events.Content.AssetRequested += ChangeDialogs;
+            _helper.Events.Content.AssetRequested += ChangeDialogues;
             _helper.Events.Content.AssetRequested += ChangeImages;
         }
         
-        private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
+        private void ChangeDialogues(object sender, AssetRequestedEventArgs e)
         {
             _isChannelEnabled = _helper.ReadConfig<ModConfig>().GloboRuralToggle;
             if (!_isChannelEnabled) return;

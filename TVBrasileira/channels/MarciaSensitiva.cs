@@ -14,12 +14,12 @@ namespace TVBrasileira.channels
         public MarciaSensitiva(IModHelper helper)
         {
             _helper = helper;
-            _helper.Events.Content.AssetRequested += ChangeDialogs;
+            _helper.Events.Content.AssetRequested += ChangeDialogues;
             _helper.Events.GameLoop.UpdateTicked += DivorceCheck;
             _helper.Events.GameLoop.DayStarted += PierresBirthdayCheck;
         }
 
-        private void ChangeDialogs(object sender, AssetRequestedEventArgs e)
+        private void ChangeDialogues(object sender, AssetRequestedEventArgs e)
         {
             _isChannelEnabled = _helper.ReadConfig<ModConfig>().SensitiveMarciaToggle;
             if (!_isChannelEnabled) return;
