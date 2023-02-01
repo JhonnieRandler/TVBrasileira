@@ -1,56 +1,39 @@
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-using TVBrasileira.frameworks;
 
 namespace TVBrasileira.channels
 {
-    public class Palmirinha
+    public class Palmirinha : Channel
     {
-        private readonly IModHelper _helper;
-        private bool _isChannelEnabled;
         private static readonly Rectangle QueenOfSauceArea = new(602, 361, 84, 28);
-
         private static IRawTextureData _palmirinhaTexture;
         
-        public Palmirinha(IModHelper helper)
+        public Palmirinha(IModHelper helper, IMonitor monitor) : base(helper, monitor)
         {
-            _helper = helper;
-            _palmirinhaTexture = _helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
-            _helper.Events.Content.AssetRequested += ChangeDialogues;
-            _helper.Events.Content.AssetRequested += ChangeImages;
+            _palmirinhaTexture = Helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
+            Helper.Events.Content.AssetRequested += ChangeDialogues;
+            Helper.Events.Content.AssetRequested += ChangeImages;
         }
         
         private void ChangeDialogues(object sender, AssetRequestedEventArgs e)
         {
-            _isChannelEnabled = _helper.ReadConfig<ModConfig>().PalmirinhaToggle;
-            if (!_isChannelEnabled) return;
-            if (e.NameWithoutLocale.IsEquivalentTo("Strings/StringsFromCSFiles"))
-            {
-                e.Edit(asset =>
-                {
-                    var editor = asset.AsDictionary<string, string>();
-                    editor.Data["TV.cs.13114"] = I18n.TitlePalmirinha();
-                    editor.Data["TV.cs.13117"] = I18n.RerunPalmirinha();
-                    editor.Data["TV.cs.13127"] = I18n.IntroPalmirinha();
-                    editor.Data["TV.cs.13151"] = I18n.LearnedPalmirinha();
-                    editor.Data["TV.cs.13153"] = I18n.OutroPalmirinha();
-                });
-            }
+            if (!IsChannelEnabled()) return;
+            
+            var assetName = e.NameWithoutLocale;
+            if (!assetName.IsEquivalentTo("Strings/StringsFromCSFiles")) return;
+            e.Edit(asset => AssignChannelStrings(asset, assetName));
         }
 
         private void ChangeImages(object sender, AssetRequestedEventArgs e)
         {
-            _isChannelEnabled = _helper.ReadConfig<ModConfig>().PalmirinhaToggle;
-            if (!_isChannelEnabled) return;
-            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
+            if (!IsChannelEnabled()) return;
+            if (!e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors")) return;
+            e.Edit(asset =>
             {
-                e.Edit(asset =>
-                {
-                    var editor = asset.AsImage();
-                    editor.PatchImage(_palmirinhaTexture, targetArea: QueenOfSauceArea);
-                });
-            }
+                var editor = asset.AsImage();
+                editor.PatchImage(_palmirinhaTexture, targetArea: QueenOfSauceArea);
+            });
         }
     }
 }
