@@ -32,8 +32,8 @@ namespace TVBrasileira.channels
             e.Edit(asset =>
             {
                 var editor = asset.AsDictionary<string, string>();
-                editor.Data["TV.cs.13136"] = IsChannelEnabled() ?
-                    I18n.DisabledEdnaldo(_farmerName) : I18n.IntroEdnaldo();
+                editor.Data["TV.cs.13136"] = IsChannelEnabled() ? 
+                    I18n.IntroEdnaldo() : I18n.DisabledEdnaldo(_farmerName);
                 
                 AssignChannelStrings(asset, assetName);
             });
