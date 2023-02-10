@@ -15,6 +15,7 @@ namespace TVBrasileira.channels
             _palmirinhaTexture = Helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
             
             TargetDialogueAssets = new List<string> { "Strings/StringsFromCSFiles" };
+            TargetImageAssets = new List<string> { "LooseSprites/Cursors" };
             
             Helper.Events.Content.AssetRequested += ChangeDialogues;
             Helper.Events.Content.AssetRequested += ChangeImages;
@@ -30,15 +31,10 @@ namespace TVBrasileira.channels
             editor.Data["TV.cs.13153"] = I18n.OutroPalmirinha();
         }
 
-        private void ChangeImages(object sender, AssetRequestedEventArgs e)
+        protected override void SetCustomImages(IAssetDataForImage editor, IAssetName assetName)
         {
             if (!IsChannelEnabled()) return;
-            if (!e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors")) return;
-            e.Edit(asset =>
-            {
-                var editor = asset.AsImage();
-                editor.PatchImage(_palmirinhaTexture, targetArea: QueenOfSauceArea);
-            });
+            editor.PatchImage(_palmirinhaTexture, targetArea: QueenOfSauceArea);
         }
     }
 }

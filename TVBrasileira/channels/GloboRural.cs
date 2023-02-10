@@ -19,6 +19,7 @@ namespace TVBrasileira.channels
                 "Strings/StringsFromCSFiles",
                 "Data/TV/TipChannel"
             };
+            TargetImageAssets = new List<string> { "LooseSprites/Cursors" };
             
             Helper.Events.Content.AssetRequested += ChangeDialogues;
             Helper.Events.Content.AssetRequested += ChangeImages;
@@ -72,17 +73,10 @@ namespace TVBrasileira.channels
             }
         }
 
-        private void ChangeImages(object sender, AssetRequestedEventArgs e)
+        protected override void SetCustomImages(IAssetDataForImage editor, IAssetName assetName)
         {
             if (!IsChannelEnabled()) return;
-            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
-            {
-                e.Edit(asset =>
-                {
-                    var editor = asset.AsImage();
-                    editor.PatchImage(_globoRuralTexture, targetArea: LivinOffTheLandArea);
-                });
-            }
+            editor.PatchImage(_globoRuralTexture, targetArea: LivinOffTheLandArea);
         }
     }
 }

@@ -11,6 +11,7 @@ namespace TVBrasileira.channels
         protected readonly IMonitor Monitor;
 
         protected List<string> TargetDialogueAssets;
+        protected List<string> TargetImageAssets;
 
         protected Channel(IModHelper helper, IMonitor monitor)
         {
@@ -18,12 +19,10 @@ namespace TVBrasileira.channels
             Monitor = monitor;
         }
 
-        /// <member name="M:Channel.IsChannelEnabled">
         ///  <summary>
         /// Determines whether the current channel is enabled based on its name.
         /// </summary>
         /// <returns>A Boolean value indicating whether the channel is enabled.</returns>
-        /// </member>
         protected bool IsChannelEnabled()
         {
             return GetType().Name switch
@@ -35,12 +34,16 @@ namespace TVBrasileira.channels
             };
         }
 
+        /// <summary>
+        /// Changes the dialogues for the target assets in the `TargetDialogueAssets` list.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments that contain information about the requested asset.</param>
         protected void ChangeDialogues(object sender, AssetRequestedEventArgs e)
         {
             var currentAssetName = e.NameWithoutLocale;
-            foreach (var targetAsset in TargetDialogueAssets)
-            {
-                if (!currentAssetName.IsEquivalentTo(targetAsset)) return;
+            
+            if (TargetDialogueAssets.Contains(currentAssetName.ToString())){
                 e.Edit(asset =>
                 {
                     var editor = asset.AsDictionary<string, string>();
@@ -49,8 +52,42 @@ namespace TVBrasileira.channels
             }
         }
 
+        /// <summary>
+        /// Sets custom dialogues for the specified asset.
+        /// </summary>
+        /// <param name="editor">The editor for the asset data as a dictionary.</param>
+        /// <param name="assetName">The name of the asset.</param>
         protected abstract void SetCustomDialogues(IAssetDataForDictionary<string, string> editor, IAssetName assetName);
         
+        /// <summary>
+        /// Changes the images for the target assets in the `TargetImageAssets` list.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments that contain information about the requested asset.</param>
+        protected void ChangeImages(object sender, AssetRequestedEventArgs e)
+        {
+            var currentAssetName = e.NameWithoutLocale;
+            foreach (var targetAsset in TargetImageAssets)
+            {
+                if (!currentAssetName.IsEquivalentTo(targetAsset)) return;
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsImage();
+                    SetCustomImages(editor, currentAssetName);
+                });
+            }
+        }
+        
+        /// <summary>
+        /// Sets custom images for the specified asset.
+        /// </summary>
+        /// <param name="editor">The editor for the asset data as an image.</param>
+        /// <param name="assetName">The name of the asset.</param>
+        protected abstract void SetCustomImages(IAssetDataForImage editor, IAssetName assetName);
+        
+        /// <summary>
+        /// Invalidates the cache for the target assets in the `TargetDialogueAssets` list.
+        /// </summary>
         protected void InvalidateDialogues()
         {
             foreach (var targetAsset in TargetDialogueAssets)

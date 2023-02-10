@@ -22,6 +22,11 @@ namespace TVBrasileira.channels
             _ednaldoIslandTexture = Helper.ModContent.Load<IRawTextureData>("assets/ednaldoIsland.png");
             
             TargetDialogueAssets = new List<string> { "Strings/StringsFromCSFiles" };
+            TargetImageAssets = new List<string>
+            {
+                "LooseSprites/Cursors",
+                "LooseSprites/Cursors2"
+            };
             
             Helper.Events.Content.AssetRequested += ChangeDialogues;
             Helper.Events.Content.AssetRequested += ChangeImages;
@@ -47,22 +52,17 @@ namespace TVBrasileira.channels
             editor.Data["TV_IslandWeatherIntro"] = I18n.IslandEdnaldo();
         }
 
-        private void ChangeImages(object sender, AssetRequestedEventArgs e)
+        protected override void SetCustomImages(IAssetDataForImage editor, IAssetName assetName)
         {
-            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
-                e.Edit(asset =>
-                {
-                    var editor = asset.AsImage();
+            switch (assetName.ToString())
+            {
+                case "LooseSprites/Cursors":
                     editor.PatchImage(_ednaldoPereiraTexture, targetArea: WeatherReportArea);
-                });
-            
-
-            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors2"))
-                e.Edit(asset =>
-                {
-                    var editor = asset.AsImage();
+                    break;
+                case "LooseSprites/Cursors2":
                     editor.PatchImage(_ednaldoIslandTexture, targetArea: IslandReportArea);
-                });
+                    break;
+            }
         }
 
         private void OnSaveLoad(object sender, SaveLoadedEventArgs e)
