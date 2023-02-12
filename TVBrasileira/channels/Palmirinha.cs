@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
-using StardewModdingAPI.Events;
 
 namespace TVBrasileira.channels
 {
@@ -17,8 +16,8 @@ namespace TVBrasileira.channels
             TargetDialogueAssets = new List<string> { "Strings/StringsFromCSFiles" };
             TargetImageAssets = new List<string> { "LooseSprites/Cursors" };
             
-            Helper.Events.Content.AssetRequested += ChangeDialogues;
-            Helper.Events.Content.AssetRequested += ChangeImages;
+            Helper.Events.Content.AssetRequested += CheckTargetDialogues;
+            Helper.Events.Content.AssetRequested += CheckTargetImages;
         }
         
         protected override void SetCustomDialogues(IAssetDataForDictionary<string, string> editor, IAssetName assetName)

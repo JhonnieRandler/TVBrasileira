@@ -22,14 +22,10 @@ namespace TVBrasileira.channels
             _ednaldoIslandTexture = Helper.ModContent.Load<IRawTextureData>("assets/ednaldoIsland.png");
             
             TargetDialogueAssets = new List<string> { "Strings/StringsFromCSFiles" };
-            TargetImageAssets = new List<string>
-            {
-                "LooseSprites/Cursors",
-                "LooseSprites/Cursors2"
-            };
+            TargetImageAssets = new List<string> { "LooseSprites/Cursors", "LooseSprites/Cursors2" };
             
-            Helper.Events.Content.AssetRequested += ChangeDialogues;
-            Helper.Events.Content.AssetRequested += ChangeImages;
+            Helper.Events.Content.AssetRequested += CheckTargetDialogues;
+            Helper.Events.Content.AssetRequested += CheckTargetImages;
             Helper.Events.GameLoop.SaveLoaded += OnSaveLoad;
             Helper.Events.GameLoop.UpdateTicked += UpdateFarmerName;
         }
@@ -58,10 +54,10 @@ namespace TVBrasileira.channels
             {
                 case "LooseSprites/Cursors":
                     editor.PatchImage(_ednaldoPereiraTexture, targetArea: WeatherReportArea);
-                    break;
+                    return;
                 case "LooseSprites/Cursors2":
                     editor.PatchImage(_ednaldoIslandTexture, targetArea: IslandReportArea);
-                    break;
+                    return;
             }
         }
 

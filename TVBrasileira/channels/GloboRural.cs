@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
-using StardewModdingAPI.Events;
 
 namespace TVBrasileira.channels
 {
@@ -14,15 +13,11 @@ namespace TVBrasileira.channels
         {
             _globoRuralTexture = Helper.ModContent.Load<IRawTextureData>("assets/globoRural.png");
             
-            TargetDialogueAssets = new List<string>
-            {
-                "Strings/StringsFromCSFiles",
-                "Data/TV/TipChannel"
-            };
+            TargetDialogueAssets = new List<string> { "Strings/StringsFromCSFiles", "Data/TV/TipChannel" };
             TargetImageAssets = new List<string> { "LooseSprites/Cursors" };
             
-            Helper.Events.Content.AssetRequested += ChangeDialogues;
-            Helper.Events.Content.AssetRequested += ChangeImages;
+            Helper.Events.Content.AssetRequested += CheckTargetDialogues;
+            Helper.Events.Content.AssetRequested += CheckTargetImages;
         }
         
         protected override void SetCustomDialogues(IAssetDataForDictionary<string, string> editor, IAssetName assetName)
@@ -31,7 +26,7 @@ namespace TVBrasileira.channels
             
             switch (assetName.ToString())
             {
-                case "Strings/StringsFromCSFiles":
+                case "Data/TV/TipChannel":
                     editor.Data["1"] = I18n._1();
                     editor.Data["8"] = I18n._8();
                     editor.Data["15"] = I18n._15();
@@ -65,11 +60,11 @@ namespace TVBrasileira.channels
                     editor.Data["211"] = I18n._211();
                     editor.Data["218"] = I18n._218();
                     editor.Data["221"] = I18n._221();
-                    break;
-                case "Data/TV/TipChannel":
+                    return;
+                case "Strings/StringsFromCSFiles":
                     editor.Data["TV.cs.13111"] = I18n.TitleGloboRural();
                     editor.Data["TV.cs.13124"] = I18n.IntroGloboRural();
-                    break;
+                    return;
             }
         }
 

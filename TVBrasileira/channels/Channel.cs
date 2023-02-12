@@ -35,20 +35,23 @@ namespace TVBrasileira.channels
         }
 
         /// <summary>
-        /// Changes the dialogues for the target assets in the `TargetDialogueAssets` list.
+        /// Check if the requested asset is equivalent to a target dialogue asset
+        /// If equivalent, edit the asset to set custom dialogues
         /// </summary>
         /// <param name="sender">The object that raised the event.</param>
         /// <param name="e">The event arguments that contain information about the requested asset.</param>
-        protected void ChangeDialogues(object sender, AssetRequestedEventArgs e)
+        protected void CheckTargetDialogues(object sender, AssetRequestedEventArgs e)
         {
-            var currentAssetName = e.NameWithoutLocale;
-            
-            if (TargetDialogueAssets.Contains(currentAssetName.ToString())){
+            var requestedAssetName = e.NameWithoutLocale;
+            foreach (var targetAsset in TargetDialogueAssets)
+            {
+                if (!requestedAssetName.IsEquivalentTo(targetAsset)) continue;
                 e.Edit(asset =>
                 {
                     var editor = asset.AsDictionary<string, string>();
-                    SetCustomDialogues(editor, currentAssetName);
+                    SetCustomDialogues(editor, requestedAssetName);
                 });
+                break;
             }
         }
 
@@ -60,21 +63,23 @@ namespace TVBrasileira.channels
         protected abstract void SetCustomDialogues(IAssetDataForDictionary<string, string> editor, IAssetName assetName);
         
         /// <summary>
-        /// Changes the images for the target assets in the `TargetImageAssets` list.
+        /// Check if the requested asset is equivalent to a target image asset
+        /// If equivalent, edit the asset to set custom images
         /// </summary>
         /// <param name="sender">The object that raised the event.</param>
         /// <param name="e">The event arguments that contain information about the requested asset.</param>
-        protected void ChangeImages(object sender, AssetRequestedEventArgs e)
+        protected void CheckTargetImages(object sender, AssetRequestedEventArgs e)
         {
-            var currentAssetName = e.NameWithoutLocale;
+            var requestedAssetName = e.NameWithoutLocale;
             foreach (var targetAsset in TargetImageAssets)
             {
-                if (!currentAssetName.IsEquivalentTo(targetAsset)) return;
+                if (!requestedAssetName.IsEquivalentTo(targetAsset)) continue;
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
-                    SetCustomImages(editor, currentAssetName);
+                    SetCustomImages(editor, requestedAssetName);
                 });
+                break;
             }
         }
         
