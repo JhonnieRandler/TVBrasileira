@@ -32,9 +32,9 @@ You can also configure through the gear button in the Main Menu or configure the
 
 ## Todo
 - [ ] Add custom soundtrack for each channel
-- [ ] Master's banning you to the shadow realm if you make him mad
-- [ ] New characters
-- [ ] New sprite for the island weather report, along with moving the small weather sprites to another position on-screen
+- [ ] Master banning you to the shadow realm if you make him mad
+- [ ] New characters (ongoing Fortune Teller)
+- [ ] New sprite for the island weather report, along with moving the small weather sprites to another position on-screen (half done)
 
 ## Credits
 
