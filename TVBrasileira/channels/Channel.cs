@@ -19,24 +19,40 @@ namespace TVBrasileira.channels
             Monitor = monitor;
         }
 
-        ///  <summary>
-        /// Determines whether the current channel is enabled based on its name.
+        /// <summary>
+        /// Determines whether the current channel is enabled based on its toggle property stored in the configuration file.
+        /// The toggle property is dynamically retrieved based on the name of the channel class, with the pattern "{ClassName}Toggle".
+        /// If the toggle property is found, its value is returned, otherwise the method returns true.
         /// </summary>
-        /// <returns>A Boolean value indicating whether the channel is enabled.</returns>
+        /// <returns>Boolean indicating if the channel is enabled.</returns>
         protected bool IsChannelEnabled()
         {
-            return GetType().Name switch
+            var toggleName = $"{GetType().Name}Toggle";
+            var modConfig = Helper.ReadConfig<ModConfig>();
+
+            var toggleProperty = modConfig.GetType().GetProperty(toggleName);
+            if (toggleProperty == null)
             {
-                "Palmirinha" => Helper.ReadConfig<ModConfig>().PalmirinhaToggle,
-                "EdnaldoPereira" => Helper.ReadConfig<ModConfig>().EdnaldoPereiraToggle,
-                "GloboRural" => Helper.ReadConfig<ModConfig>().GloboRuralToggle,
-                _ => false
-            };
+                Monitor.Log("The ModConfig " + toggleName + " property returned null when trying to read mod options, probably due to bad orthography." + 
+                            "\nKeeping broken channels enabled." +
+                            "\nIf you're seeing this, please report at nexusmods.com/stardewvalley/mods/10843?tab=posts" +
+                            " or github.com/JhonnieRandler/TVBrasileira/issues.", LogLevel.Error);
+                return true;
+            }
+
+            var result = toggleProperty.GetValue(modConfig);
+            if (result is bool toggleValue) return toggleValue;
+            
+            Monitor.Log("The ModConfig " + toggleName + " property is not boolean." +
+                        "\nKeeping broken channels enabled." +
+                        "\nIf you're seeing this the devs really f* it up this time /j, please report at nexusmods.com/stardewvalley/mods/10843?tab=posts" +
+                        " or github.com/JhonnieRandler/TVBrasileira/issues.", LogLevel.Error);
+            return true;
         }
 
         /// <summary>
-        /// Check if the requested asset is equivalent to a target dialogue asset
-        /// If equivalent, edit the asset to set custom dialogues
+        /// Check if the requested asset is equivalent to a target dialogue asset.
+        /// If equivalent, edit the asset to set custom dialogues.
         /// </summary>
         /// <param name="sender">The object that raised the event.</param>
         /// <param name="e">The event arguments that contain information about the requested asset.</param>
@@ -63,8 +79,8 @@ namespace TVBrasileira.channels
         protected abstract void SetCustomDialogues(IAssetDataForDictionary<string, string> editor, IAssetName assetName);
         
         /// <summary>
-        /// Check if the requested asset is equivalent to a target image asset
-        /// If equivalent, edit the asset to set custom images
+        /// Check if the requested asset is equivalent to a target image asset.
+        /// If equivalent, edit the asset to set custom images.
         /// </summary>
         /// <param name="sender">The object that raised the event.</param>
         /// <param name="e">The event arguments that contain information about the requested asset.</param>
