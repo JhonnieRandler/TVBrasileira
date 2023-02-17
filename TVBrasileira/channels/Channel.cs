@@ -35,8 +35,8 @@ namespace TVBrasileira.channels
             {
                 Monitor.Log("The ModConfig " + toggleName + " property returned null when trying to read mod options, probably due to bad orthography." + 
                             "\nKeeping broken channels enabled." +
-                            "\nIf you're seeing this, please report at nexusmods.com/stardewvalley/mods/10843?tab=posts" +
-                            " or github.com/JhonnieRandler/TVBrasileira/issues.", LogLevel.Error);
+                            "\nIf you're seeing this, please report at nexusmods.com/stardewvalley/mods/10843?tab=posts " +
+                            "or github.com/JhonnieRandler/TVBrasileira/issues.", LogLevel.Error);
                 return true;
             }
 
@@ -45,8 +45,8 @@ namespace TVBrasileira.channels
             
             Monitor.Log("The ModConfig " + toggleName + " property is not boolean." +
                         "\nKeeping broken channels enabled." +
-                        "\nIf you're seeing this the devs really f* it up this time /j, please report at nexusmods.com/stardewvalley/mods/10843?tab=posts" +
-                        " or github.com/JhonnieRandler/TVBrasileira/issues.", LogLevel.Error);
+                        "\nIf you're seeing this the devs really f* it up this time /j, please report at nexusmods.com/stardewvalley/mods/10843?tab=posts " +
+                        "or github.com/JhonnieRandler/TVBrasileira/issues.", LogLevel.Error);
             return true;
         }
 
@@ -119,6 +119,11 @@ namespace TVBrasileira.channels
                 Helper.GameContent.InvalidateCache(targetAsset);
                 Helper.GameContent.InvalidateCache(targetAsset + currentLocale);
             }
+            Monitor.Log("Assets being invalidated twice is expected and part of how the mod works." +
+                        "\nThere's also a chance you'll see an asset being invalidated and a very similarly named asset" +
+                        "\n failing to invalidate right after." +
+                        "\nIf you've found this through a log or other means, " +
+                        "no need to point this as an error at first sight.", LogLevel.Debug);
         }
     }
 }
