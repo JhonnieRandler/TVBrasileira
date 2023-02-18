@@ -5,14 +5,14 @@ namespace TVBrasileira.frameworks
         public bool PalmirinhaToggle { get; set; }
         public bool GloboRuralToggle { get; set; }
         public bool EdnaldoPereiraToggle { get; set; }
-        public bool SensitiveMarciaToggle { get; set; }
+        public bool MarciaSensitivaToggle { get; set; }
 
         public ModConfig()
         {
             EdnaldoPereiraToggle = true;
             PalmirinhaToggle = true;
             GloboRuralToggle = true;
-            SensitiveMarciaToggle = true;
+            MarciaSensitivaToggle = true;
         }
     }
 }

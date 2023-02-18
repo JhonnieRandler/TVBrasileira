@@ -70,10 +70,10 @@ namespace TVBrasileira.frameworks
             
             configMenuApi.AddBoolOption(
                 mod: _modManifest,
-                name: () => I18n.TitleSensitiveMarcia(),
-                tooltip: () => I18n.TooltipSensitiveMarcia(),
-                getValue: () => _config.SensitiveMarciaToggle,
-                setValue: value => _config.SensitiveMarciaToggle = value
+                name: () => I18n.TitleMarciaSensitiva(),
+                tooltip: () => I18n.TooltipMarciaSensitiva(),
+                getValue: () => _config.MarciaSensitivaToggle,
+                setValue: value => _config.MarciaSensitivaToggle = value
             );
         }
         
