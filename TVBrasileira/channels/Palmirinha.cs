@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
-using StardewModdingAPI.Events;
 
 namespace TVBrasileira.channels
 {
@@ -12,28 +12,28 @@ namespace TVBrasileira.channels
         public Palmirinha(IModHelper helper, IMonitor monitor) : base(helper, monitor)
         {
             _palmirinhaTexture = Helper.ModContent.Load<IRawTextureData>("assets/palmirinha.png");
-            Helper.Events.Content.AssetRequested += ChangeDialogues;
-            Helper.Events.Content.AssetRequested += ChangeImages;
+            
+            TargetDialogueAssets = new List<string> { "Strings/StringsFromCSFiles" };
+            TargetImageAssets = new List<string> { "LooseSprites/Cursors" };
+            
+            Helper.Events.Content.AssetRequested += CheckTargetDialogues;
+            Helper.Events.Content.AssetRequested += CheckTargetImages;
         }
         
-        private void ChangeDialogues(object sender, AssetRequestedEventArgs e)
+        protected override void SetCustomDialogues(IAssetDataForDictionary<string, string> editor, IAssetName assetName)
         {
             if (!IsChannelEnabled()) return;
-            
-            var assetName = e.NameWithoutLocale;
-            if (!assetName.IsEquivalentTo("Strings/StringsFromCSFiles")) return;
-            e.Edit(asset => AssignChannelStrings(asset, assetName));
+            editor.Data["TV.cs.13114"] = I18n.TitlePalmirinha();
+            editor.Data["TV.cs.13117"] = I18n.RerunPalmirinha();
+            editor.Data["TV.cs.13127"] = I18n.IntroPalmirinha();
+            editor.Data["TV.cs.13151"] = I18n.LearnedPalmirinha();
+            editor.Data["TV.cs.13153"] = I18n.OutroPalmirinha();
         }
 
-        private void ChangeImages(object sender, AssetRequestedEventArgs e)
+        protected override void SetCustomImages(IAssetDataForImage editor, IAssetName assetName)
         {
             if (!IsChannelEnabled()) return;
-            if (!e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors")) return;
-            e.Edit(asset =>
-            {
-                var editor = asset.AsImage();
-                editor.PatchImage(_palmirinhaTexture, targetArea: QueenOfSauceArea);
-            });
+            editor.PatchImage(_palmirinhaTexture, targetArea: QueenOfSauceArea);
         }
     }
 }

@@ -9,18 +9,18 @@
   //Ednaldo Pereira
   "title-ednaldo": "Master's Forecast",
   "intro-ednaldo": "Well, guys... now I'll fore this... cast! A shout out to the Ednaldo Pereira channel member! Shout out to Shane! Thanks for becoming a member of the Ednaldo Pereira channel.",
-  "disabled-ednaldo": "I noticed that you tried to deactivate me. Not bad, {{farmer}}! But you used 100% of your power! And now I'm going to use 0% of mine!#BANNED!#...#UNBANNED!",
+  "disabled-ednaldo": "I noticed that you tried to disable me. Not bad, {{farmer}}! But you used 100% of your power! And now I'm going to use 0% of mine!#BANNED!#...#UNBANNED!",
   "festival-ednaldo": "Well, guys... the secret... to kill... a mosquito... is in... guessing... where it is! #The secret... to get to the {0}... is in being {1}... between {2} and {3}. The sky... will be... so bluey!",
   "snow-ednaldo": "Now now, snow... I am Ednaldo Pereira, how dare you fall tomorrow, snooow? Do you wanna be BANNED?",
   "alt-snow-ednaldo": "O que é o tempo? O que é o tempo?#Let's shine... like a diamond... as white as snow... that will fall tomorrow!",
-  "blizzard-ednaldo": "I didn't invent cemeteries... I didn't invent morgues. But i certainly invented the blizzard... that'll fall tomorrow!",
+  "blizzard-ednaldo": "I didn't create cemeteries... I didn't create morgues. But i certainly created the blizzard... that'll fall tomorrow!",
   "sunny-ednaldo": "The sky tomorrow will be so bluey... it will make me wanna eat it. Guess what I'll eat tomorrow! I'll eat a piece of the sky!",
   "alt-sunny-ednaldo": "Bad weather is BANNED! That's it, guys... You can leave and enjoy... the sun!",
   "rain-ednaldo": "It's gonna rain... and meanwhile... I'll eat... an apple... of love!",
   "storm-ednaldo": "The sky's worth nothing... Battery's worth everything... There will be gusts and rain... Storm wants to be everything... And it is nothing...",
   "cloudy-ednaldo": "Ednaldo Pereira's Forecast Beatbox... for Lewis...#(pa punda pum pff)... Lewis (pa punda pum pff)... from Stardew Valley (pum pff)... the day will be cloudy (pum pff)!",
-  "wind-cloudy-ednaldo": "(pa punda pum pff)... wind that passes the time in THINKING may find (pa punda pum pff)...#Well, guys, the day will be cloudy with... a strong wind that passes in time (pa punda pff)!",
-  "island-ednaldo": "Edu Anttunes, it's up to you: ",
+  "wind-cloudy-ednaldo": "(pa punda pum pff)... wind that passes through time, in THINKING, may find (pa punda pum pff)...#Well, guys, the day will be cloudy with... a strong wind that passes through time (pa punda pff)!",
+  "island-ednaldo": "Well guys, followers of Ednaldo Pereira... I'm here at Ginger Island, can you believe it? Check out Ednaldo Pereira's weather report for Ginger Island!#",
   
   //Globo Rural
   "title-globo-rural": "Rural Globe",
@@ -59,23 +59,9 @@
   "218": "Did you know that argentine cows spend their days looking at the sky? Specialists believe they're looking for oxen in the air! Learn how to treat cows with a stiff neck in the following report...",
   "221": "Folks, I've got an announcement to make. This is the last new episode of Rural Globe before our retirement. I've had a good time, and I'll miss you folks. Oh, and I've been told the station's going to start playing reruns next year. ^^Take care!",
 
-  //Sensitive Marcia
-  "title-sensitive-marcia": "Sensitive Marcia",
-  
   //GMCM
   "disabled-gmcm": "GenericModConfigMenu not installed, skipping menu registry.",
   "tooltip-palmirinha": "Enable Palmirinha Program (Overrides \"The Queen of Sauce\")",
   "tooltip-ednaldo": "Enable Master's Forecast (Overrides the \"Weather Report\")",
   "tooltip-globo-rural": "Enable the Rural Globe (Overrides \"Livin' off the Land\")",
-  "tooltip-sensitive-marcia": "Enable the Sensitive Marcia (Overrides \"Fortune Teller\")",
-  
-  //O que é preto, branco e come feito cavalo? - A zebra
-  //O que a vaca mãe disse à vaca bebê? - Já pastou da meia-noite
-  //Como o vegetal orgânico morreu? - Causas naturais
-  //Para evitar que a vaca ficasse doente, o fazendeiro a trator
-  //Você conhece a dieta do alho? Não se perde tanto peso, mas seus amigos vão te achar excelente de longe
-  //Por que o espantalho ganhou o prêmio Nobel? Porque ele se destacava no seu campo
-  //Por que o fazendeiro enterrou seu dinheiro? Pra enriquecer o solo
-  //Você sabia que o cavalo mais confortável é o cavalo parado?
-  //To do: google "farm jokes"
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -19,68 +20,59 @@ namespace TVBrasileira.channels
         {
             _ednaldoPereiraTexture = Helper.ModContent.Load<IRawTextureData>("assets/ednaldoPereira.png");
             _ednaldoIslandTexture = Helper.ModContent.Load<IRawTextureData>("assets/ednaldoIsland.png");
-            Helper.Events.Content.AssetRequested += ChangeDialogues;
-            Helper.Events.Content.AssetRequested += ChangeImages;
+            
+            TargetDialogueAssets = new List<string> { "Strings/StringsFromCSFiles" };
+            TargetImageAssets = new List<string> { "LooseSprites/Cursors", "LooseSprites/Cursors2" };
+            
+            Helper.Events.Content.AssetRequested += CheckTargetDialogues;
+            Helper.Events.Content.AssetRequested += CheckTargetImages;
             Helper.Events.GameLoop.SaveLoaded += OnSaveLoad;
-            Helper.Events.GameLoop.UpdateTicked += FarmerNameChanged;
+            Helper.Events.GameLoop.UpdateTicked += UpdateFarmerName;
         }
 
-        private void ChangeDialogues(object sender, AssetRequestedEventArgs e)
+        protected override void SetCustomDialogues(IAssetDataForDictionary<string, string> editor, IAssetName assetName)
         {
-            var assetName = e.NameWithoutLocale;
-            if (!assetName.IsEquivalentTo("Strings/StringsFromCSFiles")) return;
-            e.Edit(asset =>
-            {
-                var editor = asset.AsDictionary<string, string>();
-                editor.Data["TV.cs.13136"] = IsChannelEnabled() ? 
-                    I18n.IntroEdnaldo() : I18n.DisabledEdnaldo(_farmerName);
-                
-                AssignChannelStrings(asset, assetName);
-            });
+            editor.Data["TV.cs.13105"] = I18n.TitleEdnaldo();
+            editor.Data["TV.cs.13136"] = IsChannelEnabled() ? 
+                I18n.IntroEdnaldo() : I18n.DisabledEdnaldo(_farmerName);
+            editor.Data["TV.cs.13175"] = I18n.FestivalEdnaldo();
+            editor.Data["TV.cs.13180"] = I18n.SnowEdnaldo();
+            editor.Data["TV.cs.13181"] = I18n.AltSnowEdnaldo();
+            editor.Data["TV.cs.13182"] = I18n.SunnyEdnaldo();
+            editor.Data["TV.cs.13183"] = I18n.AltSunnyEdnaldo();
+            editor.Data["TV.cs.13184"] = I18n.RainEdnaldo();
+            editor.Data["TV.cs.13185"] = I18n.StormEdnaldo();
+            editor.Data["TV.cs.13187"] = I18n.CloudyEdnaldo();
+            editor.Data["TV.cs.13189"] = I18n.WindCloudyEdnaldo();
+            editor.Data["TV.cs.13190"] = I18n.BlizzardEdnaldo();
+            editor.Data["TV_IslandWeatherIntro"] = I18n.IslandEdnaldo();
         }
 
-        private void ChangeImages(object sender, AssetRequestedEventArgs e)
+        protected override void SetCustomImages(IAssetDataForImage editor, IAssetName assetName)
         {
-            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
+            switch (assetName.ToString())
             {
-                e.Edit(asset =>
-                {
-                    var editor = asset.AsImage();
+                case "LooseSprites/Cursors":
                     editor.PatchImage(_ednaldoPereiraTexture, targetArea: WeatherReportArea);
-                });
+                    return;
+                case "LooseSprites/Cursors2":
+                    editor.PatchImage(_ednaldoIslandTexture, targetArea: IslandReportArea);
+                    return;
             }
-
-            if (!e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors2")) return;
-            e.Edit(asset =>
-            {
-                var editor = asset.AsImage();
-                editor.PatchImage(_ednaldoIslandTexture, targetArea: IslandReportArea);
-            });
         }
 
         private void OnSaveLoad(object sender, SaveLoadedEventArgs e)
         {
             _farmerName = Game1.player.Name;
-            InvalidateAssets();
+            InvalidateDialogues();
         }
 
-        private void FarmerNameChanged(object sender, UpdateTickedEventArgs e)
+        private void UpdateFarmerName(object sender, UpdateTickedEventArgs e)
         {
-            if (!Context.IsWorldReady)
-                return;
-            if (_farmerName == Game1.player.Name)
-                return;
+            if (!Context.IsWorldReady) return;
+            if (_farmerName == Game1.player.Name) return;
             _farmerName = Game1.player.Name;
-            InvalidateAssets();
-        }
-
-        private void InvalidateAssets()
-        {
-            string currentLocale = Helper.GameContent.CurrentLocale != "" ? 
-                "." + Helper.GameContent.CurrentLocale : "";
-            
-            Helper.GameContent.InvalidateCache("Strings/StringsFromCSFiles");
-            Helper.GameContent.InvalidateCache("Strings/StringsFromCSFiles" + currentLocale);
+            InvalidateDialogues();
         }
     }
 }
