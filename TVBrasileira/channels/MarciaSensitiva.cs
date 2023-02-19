@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -7,11 +8,18 @@ namespace TVBrasileira.channels
 {
     public class MarciaSensitiva : Channel
     {
+        private static readonly Rectangle FortuneTellerArea = new(540, 305, 126, 28);
+        
+        private static IRawTextureData _marciaSensitivaTexture;
+        
         private bool _playerDivorceTonight;
         private bool _isPierreBirthday;
         private bool _pierreBirthdayWasTrueYesterday;
+        
         public MarciaSensitiva(IModHelper helper, IMonitor monitor) : base(helper, monitor)
         {
+            _marciaSensitivaTexture = Helper.ModContent.Load<IRawTextureData>("assets/marciaSensitiva.png");
+            
             TargetDialogueAssets = new List<string> { "Strings/StringsFromCSFiles" };
             TargetImageAssets = new List<string> { "LooseSprites/Cursors" };
             
@@ -46,7 +54,7 @@ namespace TVBrasileira.channels
             }
             else
             {
-                string marcia = "Olá, sou a Márcia Sensitiva";
+                string marcia = "Nós viemos aqui para apenas um ano de uma escola que não tem fim! Que é a escola da vida. E esse ano você veio aprender. Será que você vai passar de ano? Ou cê vai sair daqui que nem uma TONTA? Sem saber nada? #Poxa, tudo bem, tô aqui pra aprender, mas será que eu aprendi pelo menos 50% daquilo que a vida enfia na minha cara?";
                 editor.Data["TV.cs.13128"] = marcia;
                 editor.Data["TV.cs.13130"] = marcia;
                 editor.Data["TV.cs.13132"] = marcia;
@@ -58,7 +66,8 @@ namespace TVBrasileira.channels
 
         protected override void SetCustomImages(IAssetDataForImage editor, IAssetName assetName)
         {
-            throw new System.NotImplementedException();
+            if (!IsChannelEnabled()) return;
+            editor.PatchImage(_marciaSensitivaTexture, targetArea: FortuneTellerArea);
         }
         
         private void CheckDivorce(object sender, UpdateTickedEventArgs e)
