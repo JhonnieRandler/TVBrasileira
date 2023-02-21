@@ -56,14 +56,14 @@ namespace TVBrasileira.channels
             
             if (_playerDivorceTonight)
             {
+                editor.Data["TV.cs.13128"] = editor.Data["TV.cs.13130"] = I18n.WhatsApp();
                 editor.Data["TV.cs.13132"] = I18n.GrayAura();
                 editor.Data["TV.cs.13133"] = I18n.GoAway();
                 editor.Data["TV.cs.13134"] = I18n.Marriage();
                 editor.Data["TV.cs.13135"] = I18n.Psalm66();
             } else if (_isPierreBirthday)
             {
-                //editor.Data["TV.cs.13128"] = I18n.Disgrace();
-                //editor.Data["TV.cs.13130"] = I18n.Twice();
+                editor.Data["TV.cs.13128"] = editor.Data["TV.cs.13130"] = I18n.Disgrace();
                 editor.Data["TV.cs.13132"] = I18n.BadPeople();
                 editor.Data["TV.cs.13133"] = I18n.ScrewYouPierre();
                 editor.Data["TV.cs.13134"] = I18n.WorldOfDarkness();
@@ -71,6 +71,7 @@ namespace TVBrasileira.channels
             }
             else if (_isReveillon)
             {
+                editor.Data["TV.cs.13128"] = editor.Data["TV.cs.13130"] = I18n.Tired();
                 editor.Data["TV.cs.13132"] = I18n.EndOfYear();
                 editor.Data["TV.cs.13133"] = I18n.Reveillon();
                 editor.Data["TV.cs.13134"] = I18n.WakeUp();
