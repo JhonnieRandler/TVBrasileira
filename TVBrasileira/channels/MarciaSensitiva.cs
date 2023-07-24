@@ -36,11 +36,10 @@ namespace TVBrasileira.channels
         {
             if (!IsChannelEnabled()) return;
             editor.Data["TV.cs.13107"] = I18n.TitleMarciaSensitiva();
-            
             editor.Data["TV.cs.13128"] = I18n.MessyHouse();
             editor.Data["TV.cs.13130"] = I18n.Creature();
             editor.Data["TV.cs.13132"] = I18n.LittleDead();
-            editor.Data["TV.cs.13133"] = I18n.SideralEngineers();
+            editor.Data["TV.cs.13133"] = I18n.SiderealEngineers();
             editor.Data["TV.cs.13134"] = I18n.Karma();
             editor.Data["TV.cs.13135"] = I18n.SundayNight();
 
@@ -87,10 +86,9 @@ namespace TVBrasileira.channels
         
         private void CheckDivorce(object sender, UpdateTickedEventArgs e)
         {
-            if (!Context.IsWorldReady)
-                return;
-            if (Game1.player.divorceTonight.Value == _playerDivorceTonight)
-                return;
+            if (!Context.IsWorldReady) return;
+            if (Game1.player.divorceTonight.Value == _playerDivorceTonight) return;
+            
             _playerDivorceTonight = !_playerDivorceTonight;
             InvalidateDialogues();
         }

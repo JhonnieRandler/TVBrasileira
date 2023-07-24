@@ -107,7 +107,7 @@ namespace TVBrasileira.channels
         protected abstract void SetCustomImages(IAssetDataForImage editor, IAssetName assetName);
         
         /// <summary>
-        /// Invalidates the cache for the target assets in the `TargetDialogueAssets` list.
+        /// Invalidates the cache for the target assets in the `TargetDialogueAssets` list. Used to reload or update dialogues texts.
         /// </summary>
         protected void InvalidateDialogues()
         {
