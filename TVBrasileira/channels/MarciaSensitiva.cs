@@ -52,7 +52,6 @@ namespace TVBrasileira.channels
             editor.Data["TV.cs.13199"] = I18n.GoodMoodSpirits();
             editor.Data["TV.cs.13200"] = I18n.NeutralSpirits();
             editor.Data["TV.cs.13201"] = I18n.AbsolutelyNeutralSpirits();
-            
             if (_playerDivorceTonight)
             {
                 editor.Data["TV.cs.13128"] = editor.Data["TV.cs.13130"] = I18n.WhatsApp();
